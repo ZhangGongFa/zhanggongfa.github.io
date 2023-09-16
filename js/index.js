@@ -7,7 +7,7 @@ $("#login-button").click(function (event) {
     var formattedNumber = ("000" + i).slice(-3); // Định dạng số thành chuỗi 3 chữ số với số 0 đứng trước
     var targetUserName = "030239230" + formattedNumber;
     
-    if (userName === targetUserName && pwd === "MISerK39") {
+    if ((userName === targetUserName && pwd === "MISerK39")|| (userName === "thayco" && pwd === "MIS")) {
       validUser = true;
       break; // Khi tìm thấy tài khoản hợp lệ, thoát khỏi vòng lặp
     }
