@@ -80,9 +80,9 @@ h1 {
 
 
   .wrapper {
-    background: #ee9ca7;
-    background: -webkit-linear-gradient(top left, #ee9ca7 0%, #ee9ca7 100%);
-    background: linear-gradient(to bottom right, #ee9ca7 0%, #ee9ca7 100%);
+    background: #f7bec6;
+    background: -webkit-linear-gradient(top left, #f7bec6 0%, #f7bec6 100%);
+    background: linear-gradient(to bottom right, ##f7bec6 0%, #f7bec6 100%);
     background-color:rgba(255,255,255,0.9);
     position: absolute;
     top:0;
