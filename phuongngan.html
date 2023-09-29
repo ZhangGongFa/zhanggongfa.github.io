@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trung Thu Vui Ve</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Grey+Qo&display=swap');
+
+    body {
+        display: flex;
+        background-image: linear-gradient(
+7deg, #6a6a4c, #000031);
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+        font-family: 'Grey Qo', cursive;
+    }
+
+    #starLight {
+        position: absolute;
+        top: 40%;
+        left: 10%;
+        z-index: 100;
+        cursor: move;
+    }
+
+    #starLight div:not(.starLightStick, .light) {
+        position: absolute;
+        height: 0;
+        width: 0;
+        border-bottom: 200px solid;
+        border-left: 70px solid transparent;
+        border-right: 70px solid transparent;
+        border-top: 0px solid transparent;
+        transform-origin: bottom;
+        opacity: 0.3;
+    }
+
+    #starLight div:nth-child(3) {
+        border-bottom-color: red;
+    }
+
+    #starLight div:nth-child(4) {
+        border-bottom-color: green;
+        transform: rotate(70deg);
+    }
+
+    #starLight div:nth-child(5) {
+        border-bottom-color: blue;
+        transform: rotate(140deg);
+    }
+
+    #starLight div:nth-child(6) {
+        border-bottom-color: yellow;
+        transform: rotate(210deg);
+    }
+
+    #starLight div:nth-child(7) {
+        border-bottom-color: orange;
+        transform: rotate(280deg);
+    }
+
+    #starLight .starLightStick {
+        position: absolute;
+        height: 500px;
+        width: 10px;
+        background: brown;
+        z-index: 10;
+        left: 74px;
+        top: 277px;
+        margin-left: -3px;
+        border-radius: 6px;
+    }
+
+    .light {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+        background: yellow;
+        box-shadow: 0 0 100px 87px yellow;
+        top: 150px;
+        left: 22px;
+        animation: Starlight 3s infinite forwards;
+    }
+
+    @keyframes Starlight {
+
+        0%,
+        100% {
+            opacity: 0.4;
+        }
+
+        40% {
+            opacity: 0.7;
+        }
+
+        45% {
+            opacity: 0.5;
+        }
+
+        50% {
+            opacity: 0.9;
+        }
+
+        75% {
+            opacity: 0.6;
+        }
+    }
+
+    @keyframes camDen {
+        0%,
+        100% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        40% {
+            transform: translateY(20px) rotate(10deg);
+        }
+
+        45% {
+            transform: translateY(35px);
+        }
+
+        50% {
+            transform: translateY(25px) rotate(-10deg);
+        }
+
+        75% {
+            transform: translateY(10px);
+        }
+    }
+    @keyframes diNao {
+        0%{
+            left:0%
+        }
+        100%{
+            left:100%
+        }
+    }
+    @keyframes mrHang {
+
+        0%,
+        100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 0.4;
+        }
+    }
+
+    @keyframes mrHang2 {
+
+        0%,
+        100% {
+            opacity: 0;
+            transform: scale(0.07) rotate(0deg);
+        }
+
+        50% {
+            opacity: 0.4;
+            transform: scale(0.07) rotate(40deg);
+        }
+    }
+
+    .moon {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+        background: rgb(243, 243, 210);
+        box-shadow: 0 0 100px 38px rgb(243 243 210);
+        right: 88px;
+        top: 20px;
+        right: 200px;
+        opacity: 0.9;
+        overflow: hidden;
+    }
+
+    .moon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        animation: mrHang 7s infinite forwards;
+    }
+
+    .star-five {
+        margin: 50px 0;
+        position: relative;
+        display: block;
+        color: yellow;
+        width: 0px;
+        height: 0px;
+        border-right: 100px solid transparent;
+        border-bottom: 70px solid yellow;
+        border-left: 100px solid transparent;
+        -moz-transform: rotate(35deg);
+        -webkit-transform: rotate(35deg);
+        -ms-transform: rotate(35deg);
+        -o-transform: rotate(35deg);
+        transform: scale(0.05);
+        position: absolute;
+    }
+
+    .star-five:nth-child(odd) {
+        animation: mrHang2 7s infinite forwards;
+    }
+
+    .star-five:before {
+        border-bottom: 80px solid yellow;
+        border-left: 30px solid transparent;
+        border-right: 30px solid transparent;
+        position: absolute;
+        height: 0;
+        width: 0;
+        top: -45px;
+        left: -65px;
+        display: block;
+        content: '';
+        -webkit-transform: rotate(-35deg);
+        -moz-transform: rotate(-35deg);
+        -ms-transform: rotate(-35deg);
+        -o-transform: rotate(-35deg);
+
+    }
+
+    .star-five:after {
+        position: absolute;
+        display: block;
+        color: yellow;
+        top: 3px;
+        left: -105px;
+        width: 0px;
+        height: 0px;
+        border-right: 100px solid transparent;
+        border-bottom: 70px solid yellow;
+        border-left: 100px solid transparent;
+        -webkit-transform: rotate(-70deg);
+        -moz-transform: rotate(-70deg);
+        -ms-transform: rotate(-70deg);
+        -o-transform: rotate(-70deg);
+        content: '';
+    }
+
+    .hoiRuocDen {
+        width: 100%;
+        height: 300px;
+        position: relative;
+        top: 61%;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        /* animation: diNao 40s alternate infinite linear; */
+    }
+
+    .hoiRuocDen .person {
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+
+    .hoiRuocDen .person:nth-child(1) {
+        top: 30%;
+        animation: camDen 5s infinite forwards;
+    }
+
+    .hoiRuocDen .person:nth-child(2) {
+        animation: camDen 2s infinite forwards;
+    }
+
+    .hoiRuocDen .person:nth-child(3) {
+        top: 50%;
+        animation: camDen 8s infinite forwards;
+    }
+
+    .hoiRuocDen .person:nth-child(4) {
+        top: 19%;
+        animation: camDen 3s infinite forwards;
+    }
+
+    .hoiRuocDen .person:nth-child(5) {
+        top: 4%;
+        animation: camDen 6s infinite forwards;
+    }
+
+    .hoiRuocDen .person:nth-child(6) {
+        top: 21%;
+        animation: camDen 4s infinite forwards;
+    }
+
+    .hoiRuocDen .person .trangKhuyet {
+        content: "";
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        box-shadow: 15px 15px 0 0 #ffeb3b;
+        position: absolute;
+        filter: drop-shadow(0px 0px 9px #ffeb3b);
+        z-index: 2;
+    }
+
+    .hoiRuocDen .person::after {
+        content: "";
+        position: absolute;
+        height: 500px;
+        width: 5px;
+        background: brown;
+        z-index: 10;
+        left: 63px;
+        top: 84px;
+        margin-left: -3px;
+        border-radius: 6px;
+        cursor: move;
+        z-index: 1;
+    }
+
+    .facebook-icon {
+        background: #0673e7;
+        text-indent: -999em;
+        width: 100px;
+        height: 110px;
+        border-radius: 5px;
+        position: relative;
+        overflow: hidden;
+        border: 15px solid #0673e7;
+        border-bottom: 0;
+        z-index: 2;
+        transform: scale(0.6);
+        box-shadow: 0 0 55px 18px #0673e7;
+    }
+
+    .facebook-icon::before {
+        content: "/20";
+        position: absolute;
+        background: #0673e7;
+        width: 40px;
+        height: 90px;
+        bottom: -30px;
+        right: -37px;
+        border: 20px solid #eee;
+        border-radius: 25px;
+    }
+
+    .facebook-icon::after {
+        content: "/20";
+        position: absolute;
+        width: 55px;
+        top: 50px;
+        height: 20px;
+        background: #eee;
+        right: 5px;
+    }
+
+    .heart {
+        position: relative;
+        width: 100px;
+        height: 90px;
+        left: 12px;
+        top: 8px;
+        z-index: 2;
+        filter: drop-shadow(0px 0px 15px #ff0000);
+    }
+
+    .heart:before,
+    .heart:after {
+        position: absolute;
+        content: "";
+        left: 50px;
+        top: 0;
+        width: 50px;
+        height: 80px;
+        background: red;
+        -moz-border-radius: 50px 50px 0 0;
+        border-radius: 50px 50px 0 0;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        -webkit-transform-origin: 0 100%;
+        -moz-transform-origin: 0 100%;
+        -ms-transform-origin: 0 100%;
+        -o-transform-origin: 0 100%;
+        transform-origin: 0 100%;
+    }
+
+    .heart:after {
+        left: 0;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+        -webkit-transform-origin: 100% 100%;
+        -moz-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+        -o-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+    }
+
+    .pacman {
+        width: 0px;
+        height: 0px;
+        border-right: 40px solid transparent;
+        border-top: 40px solid orange;
+        border-left: 40px solid orange;
+        border-bottom: 40px solid orange;
+        border-top-left-radius: 60px;
+        border-top-right-radius: 60px;
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        position: relative;
+        left: 25px;
+        top: 8px;
+        z-index: 2;
+        filter: drop-shadow(0px 0px 15px orange);
+    }
+
+    .burst-8 {
+        background: green;
+        width: 80px;
+        height: 80px;
+        filter: drop-shadow(0px 0px 15px green);
+        position: relative;
+        left: 20px;
+        text-align: center;
+        -webkit-transform: rotate(20deg);
+    }
+
+    .burst-8:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 80px;
+        width: 80px;
+        background: green;
+        -webkit-transform: rotate(135deg);
+    }
+    .loiChuc{
+        position: absolute;
+        top: 10%;
+        left: 20%;
+        width: 600px;
+        color: yellow;
+        font-size: 30px;
+    }
+    .loiChuc a{
+        color: yellow;
+    }
+</style>
+
+<body title="Giữ vào cán đèn ông sao để cầm lấy rồi cùng đi rước đèn nhé!">
+    <div class="loiChuc"><a href="" target="_blank">Trung Thu vui vẻ nhaaa</a></div>
+    <div class="listStar">
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+        <div class="star-five"></div>
+    </div>
+
+    <div class="hoiRuocDen">
+        <div class="person">
+            <div class="heart"></div>
+        </div>
+        <div class="person">
+            <div class="trangKhuyet"></div>
+        </div>
+        <div class="person">
+            <div class="facebook-icon"></div>
+        </div>
+        <div class="person">
+            <div class="trangKhuyet"></div>
+        </div>
+        <div class="person">
+            <div class="pacman"></div>
+        </div>
+        <div class="person">
+            <div class="burst-8"></div>
+        </div>
+    </div>
+    <div id="starLight">
+        <div class="light"></div>
+        <div class="starLightStick"></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="moon"><img src="phuongngan.jpg"></div>
+    <script>
+        var audio = new Audio('Ruoc-Den-Thang-8-Be-Bao-Ngu.mp3');
+        var star = document.querySelector("body");
+        star.addEventListener('click',function () {
+            audio.play();
+            document.querySelector(".hoiRuocDen").style.animation = "diNao 40s alternate infinite linear";
+        })
+
+        var star = document.querySelectorAll(".listStar .star-five");
+
+        for (let index = 0; index < star.length; index++) {
+            star[index].style.top = Math.floor(Math.random() * 200) + "px";
+            star[index].style.left = Math.floor(Math.random() * 2000) + "px";
+            setInterval(() => {
+                star[index].style.top = Math.floor(Math.random() * 200) + "px";
+                star[index].style.left = Math.floor(Math.random() * 2000) + "px";
+            }, 7000);
+        }
+    </script>
+    <script>
+        //Make the DIV element draggagle:
+        dragElement(document.getElementById("starLight"));
+
+        function dragElement(elmnt) {
+
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (document.getElementById(elmnt.id + "Stick")) {
+                /* if present, the header is where you move the DIV from:*/
+                document.getElementById(elmnt.id + "Stick").onmousedown = dragMouseDown;
+            } else {
+                /* otherwise, move the DIV from anywhere inside the DIV:*/
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                /* stop moving when mouse button is released:*/
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+</body>
+
+</html>
