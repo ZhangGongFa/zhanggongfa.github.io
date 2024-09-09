@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form đăng ký</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+
+  <h2>Thông tin tài khoản</h2>
+  <form>
+    <label for="username">Tên tài khoản:</label><br>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+
+    <h2>Thông tin cá nhân</h2>
+    <label for="fullname">Họ Tên:</label><br>
+    <input type="text" id="fullname" name="fullname"><br><br>
+    <label for="birthday">Ngày sinh:</label><br>
+    <input type="text" id="birthday" name="birthday"><br><br>
+    <label>Giới tính:</label><br>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Nam</label>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Nữ</label><br><br>
+    <label for="phone">Số Điện Thoại:</label><br>
+    <input type="text" id="phone" name="phone"><br><br>
+    <label for="country">Quốc Gia:</label><br>
+    <select id="country" name="country">
+      <option value="vietnam">Việt Nam</option>
+	<option value="usa">Mỹ</option>
+	<option value="china">Trung Quốc</option>
+	<option value="skorea">Hàn Quốc/option>
+	<option value="japan">Nhật Bản</option>
+      </select><br><br>
+    <label>Sở thích:</label><br>
+    <input type="checkbox" id="sports" name="sports" value="sports">
+    <label for="sports">Thể thao</label>
+    <input type="checkbox" id="internet" name="internet" value="internet">
+    <label for="internet">Internet</label>
+    <input type="checkbox" id="reading" name="reading" value="reading">
+    <label for="reading">Đọc sách</label><br><br>
+    <label for="color">Màu sắc yêu thích:</label><br>
+    <select id="color" name="color">
+      <option value="red">Đỏ</option>
+      <option value="blue">Xanh dương</option>
+      <option value="green">Xanh lá cây</option>
+      <option value="yellow">Vàng</option>
+    </select><br><br>
+    <label for="health">Tự đánh giá sức khỏe:</label><br>
+    <input type="range" id="health" name="health" min="0" max="100"><br><br>
+  </form>
+
+</body>
+</html>

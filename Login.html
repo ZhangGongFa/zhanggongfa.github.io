@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        .login-container {
+            width: 350px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+        }
+        td {
+            padding: 10px 0;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .extra-options {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+        .options-label {
+            display: flex;
+            align-items: center;
+        }
+        label {
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .show-password {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .register-link, .forgot-password-link {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .register-link:hover, .forgot-password-link:hover {
+            text-decoration: underline;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px 8px 0 0; /* Bo tròn góc trên */
+        }
+        img {
+            width: 100%;
+            height: auto;
+            filter: blur(2px); /* Làm mờ hình ảnh */
+        }
+        h2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            z-index: 1; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="image-container">
+        <img src="https://xdcs.cdnchinhphu.vn/446259493575335936/2023/8/22/nh3-16927049632792037448892.jpg" alt="Sign In Image">
+        <h2>Đăng nhập</h2>
+    </div>
+    <form action="submit_login.php" method="POST">
+        <table>
+            <tr>
+                <td>Tài khoản:</td>
+            </tr>
+            <tr>
+                <td><input type="text" name="username" required></td>
+            </tr>
+            <tr>
+                <td>Mật khẩu:</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" id="password" name="password" required>
+                </td>
+            </tr>
+            <tr>
+                <td class="options-label">
+                    <label>
+                        <input type="checkbox" name="remember"> Ghi nhớ đăng nhập
+                    </label>
+                    <label class="show-password">
+                        <input type="checkbox" onclick="togglePassword()"> Hiện mật khẩu
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Đăng nhập"></td>
+            </tr>
+            <tr>
+                <td class="extra-options">
+                    <a href="forgot_password.php" class="forgot-password-link">Quên mật khẩu?</a>
+                    <a href="register.php" class="register-link">Đăng ký</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script>
+    function togglePassword() {
+        var passwordField = document.getElementById("password");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+</script>
+
+</body>
+</html>
