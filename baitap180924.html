@@ -1,0 +1,29 @@
+<?php
+    $sv1 = array("mssv" => "012345", "hoTen" => "Lê Thị Tươi", "namSinh" => 2002, "avatar" => "https://minhducpc.vn/uploads/images/hinh-cute01.png");
+    $sv2 = array("mssv" => "014245", "hoTen" => "Bành Văn Bưởi", "namSinh" => 2003, "avatar" => "https://minhducpc.vn/uploads/images/hinh-cute01.png");
+    $sv3 = array("mssv" => "014454", "hoTen" => "La Hảo Hán", "namSinh" => 2001, "avatar" => "https://minhducpc.vn/uploads/images/hinh-cute01.png");
+    $sv4 = array("mssv" => "112334", "hoTen" => "Mạc Văn Hết", "namSinh" => 2002, "avatar" => "https://minhducpc.vn/uploads/images/hinh-cute01.png");
+
+    $lop = array($sv1, $sv2, $sv3, $sv4);
+?>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>MSSV</th>
+            <th>Họ Tên</th>
+            <th>Năm Sinh</th>
+            <th>Avatar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($lop as $sv): ?>
+            <tr>
+                <td><?php echo $sv["mssv"]; ?></td>
+                <td><?php echo $sv["hoTen"]; ?></td>
+                <td><?php echo $sv["namSinh"]; ?></td>
+                <td><img src="<?php echo $sv["avatar"]; ?>" alt="Ảnh đại diện" height="50"></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
