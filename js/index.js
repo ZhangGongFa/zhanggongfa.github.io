@@ -3,14 +3,9 @@ $("#login-button").click(function (event) {
   var pwd = document.getElementById("pwd").value;
   var validUser = false;
 
-  for (var i = 1; i <= 999; i++) {
-    var formattedNumber = ("000" + i).slice(-3); // Định dạng số thành chuỗi 3 chữ số với số 0 đứng trước
-    var targetUserName = "030239230" + formattedNumber;
-    
-    if ((userName === targetUserName && pwd === "MISerK39")|| (userName === "thayco" && pwd === "MIS")) {
-      validUser = true;
-      break; // Khi tìm thấy tài khoản hợp lệ, thoát khỏi vòng lặp
-    }
+  // Kiểm tra không phân biệt hoa thường
+  if (userName.toLowerCase() === "tsv" && pwd.toLowerCase() === "tsv") {
+    validUser = true;
   }
 
   if (validUser) {
