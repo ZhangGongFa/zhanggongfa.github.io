@@ -1,0 +1,887 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+  background: #efefef;  
+  color: #252525;
+  font-family: Verdana, Geneva, Tahoma, sans -serif;
+}
+
+nav{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color:#e3e3e3;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+}
+
+
+.nav-left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 16px;
+   
+}
+
+.nav-left .logo{
+    float: left;
+    width: 10px;    
+    margin: 5px 8px 20px 8px;
+    cursor: pointer;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 8px;
+    margin-right: 16px;
+    padding: 10px;
+    font-size: 22px;
+}
+
+
+
+.nav-right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.nav-right img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center;
+    line-height: 45px;
+    margin-right: 16px;
+    margin-left: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.nav-right i{
+    background: white;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-left: 8px;
+    padding: 10px;
+    font-size: 22px;
+}
+
+.nav-center .search-box{
+    width: 530px;
+    height: 40px;
+    background: #E6E9ED;
+    border-radius: 10px;
+    margin-left: 4px;
+    padding: 0 8px;
+    position: relative;
+    align-content: center;
+}
+.nav-center .search-box input{
+    background: transparent;
+    outline: none;
+    border: 0;
+    font-size: 16px;
+    width: 200px;
+}
+
+
+.main{
+    display:flex;
+    margin-top:60px;
+}
+.main-left{
+    width: 24%;
+    height: 92vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    position:fixed;
+}
+
+.main-left::-webkit-scrollbar{
+    width:7px;
+}
+
+.main-left::-webkit-scrollbar-thumb{
+    border-radius:20px;
+    background: #ffffff;
+}
+.main-left:hover::-webkit-scrollbar-thumb{
+    background: #f0eded;
+}
+
+.img{
+    display: flex;
+    height: 40px;
+    margin: 5px 10px;
+    cursor: pointer;
+}
+
+.img:hover{
+    background: #e1dfdf;
+    border-radius: 7px;
+}
+
+.img p{
+    padding: 14px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+    margin-left: 10px;
+}
+
+.img img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 5px 12px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.main-left hr{
+    border:0;
+    background: white;
+    width: 100%;
+    height: 1px;
+    margin: 10px 0;
+}
+
+.main .left .post-footer button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+.main .left .footer {
+    margin-top: 18px;
+    font-size: 12px;
+    color: #999;
+    position: relative;
+  }
+  
+.main .left .footer a {
+    color: #999;
+    text-decoration: none;
+    margin-right: 7px;
+  }
+  
+.main .left .footer a:hover {
+    text-decoration: underline;
+  }
+.nav-right .notification-badge {
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+    background-color: #eb0404;
+    border-radius: 40%;
+    cursor: pointer;
+    position: relative;
+}
+
+/*..Main...*/
+.main .center{
+    width: 50%;
+    height: auto;
+    padding: 20px 20px 0 20px;
+    background: #f5f5f5;
+    margin-left: 20px;
+}
+
+.main .center::-webkit-scrollbar{
+    width: 0;
+}
+
+.main .center .top_box{
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.main .center .top_box .story_camera{
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    margin: 0;
+    border: 2px dashed #919191;
+    background-color: #e4e5efdd ;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+.main .center .top_box .story_camera img{
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute; /* Đặt vị trí tuyệt đối cho ảnh */
+    top: 50%; /* Đưa ảnh xuống 50% chiều cao */
+    left: 50%; /* Đưa ảnh sang phải 50% chiều rộng */
+    transform: translate(-50%, -50%);
+}
+
+.main .center .top_box .story_card img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 4px solid white;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.2);
+}
+
+.main .center .my_post{
+    width: 100%;
+    height: auto;
+    background: #fff;
+    padding: 10px 15px;
+    border-radius: 7px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+    margin: 10px 0;
+}
+
+.main .center .my_post .post_top{
+    display: flex;
+    align-items: center;
+}
+
+.main .center .my_post .post_top input{
+    width: 80%;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 25px;
+    border: 0;
+    outline: none;
+    background: #efefef;
+    border-radius: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.main .center .my_post .post_top input:hover{
+    background: #e3e3e3;
+    cursor: pointer;
+}
+
+.main .center .my_post .post_top i{
+    display: inline-block;
+    margin-left: 25px;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 23px;
+}
+
+.main .center .my_post .post_top i:hover{
+    background: #efefef;
+    border-radius: 8px;
+}
+.main .center .my_post .post_top .cameraa
+{
+    display: flex;
+    justify-content: center;
+    width: 50px;
+    margin: 10px 20px 10px 20px;
+}
+.main .center .my_post .post_top .cameraa .my-image{
+    background-color: #db287931;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.main .center .my_post .post_top .cameraa .my-image1{
+    background-color: #007fc436;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.main .center .friends_post{
+    margin: 25px 0;
+    width: 100%;
+    height: auto;
+    background: #fff;
+    padding: 10px 15px;
+    border-radius: 7px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.2);
+}
+
+.main .center .friends_post .friend_post_top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.main .center .friends_post .friend_post_top .img_and_name{
+    display: flex;
+    align-items: center;
+}
+
+.main .center .friends_post .friend_post_top .img_and_name img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.main .center .friends_post .friend_post_top .img_and_name .friends_name .friends_name{
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.main .center .friends_post .friend_post_top .img_and_name .friends_name .friends_name:hover{
+    text-decoration: underline;
+}
+
+.main .center .friends_post .friend_post_top .img_and_name .friends_name .time{
+    font-size: 15px;
+    color: #919191;
+    margin: 3px 0;
+}
+
+.main .center .friends_post .friend_post_top .menu{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.main .center .friends_post .friend_post_top .menu:hover{
+    background: #efefef;
+    cursor: pointer;
+}
+
+.main .center .friends_post .friend_post_top .menu i{
+    line-height: 35px;
+    margin-left: 8px;
+    font-size: 18px;
+}
+
+.main .center .friends_post img{
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
+}
+
+.main .center .friends_post .info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.main .center .friends_post .info .emoji_img{
+    display: flex;
+}
+
+.main .center .friends_post .info .emoji_img i{
+    margin-left: 10px;
+    width: 35px; /* Kích thước vòng tròn */
+    height: 35px; /* Kích thước vòng tròn */
+    line-height: 35px; /* Căn giữa icon theo chiều dọc */
+    text-align: center; /* Căn giữa icon theo chiều ngang */
+    border-radius: 50%; /* Tạo hình tròn */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Tạo hiệu ứng đổ bóng */
+}
+
+.main .center .friends_post .info .emoji_img p{
+    margin-left: 10px;
+    font-size: 16px;
+    color: #919191;
+    display: flex;
+    align-items: center;
+}
+
+.main .center .friends_post .info .emoji_img i.red{
+    font-size: 18px;
+    color: red;
+    background-color: rgb(237, 132, 132); 
+}
+
+.main .center .friends_post .info .emoji_img i.grey{
+    font-size: 20px;
+    color: gray;
+    background-color: white;
+}
+.main .center .friends_post .info .share{
+    display: flex;
+    align-items: center;
+}
+
+.main .center .friends_post .info .share i{
+    padding: 0 12px;
+    font-size: 20px;
+    color: #919191;
+}
+
+.main .center .friends_post hr{
+    width: 100%;
+    height: 1px;
+    background: #cccccc;
+    border: 0;
+    margin: 10px 0;
+}
+
+.main .center .friends_post .comment{
+    display: flex;
+    width: 100%;
+    height: 100x;
+    margin-top: 0;
+}
+
+.main .center .friends_post .comment .comment_img img{
+    margin-left: 10px;
+    margin-bottom: 10px;
+    width: 38px; 
+    height: 38px; 
+    line-height: 38px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.main .center .friends_post .comment .comment_infor .name{
+    font-weight: bold;
+    display: flex;
+    margin-left: 10px;
+    align-items: center;
+    line-height: 30px;
+}
+
+.main .center .friends_post .comment .comment_infor .content{
+    display: flex;
+    margin-left: 10px;
+}
+
+.main .center .friends_post .more_comment{
+    display: flex;
+    margin-left: 20px;
+    color: #919191;
+    margin-top: 10px;
+}
+
+.main .center .friends_post .more_comment i{
+    margin-right: 10px;
+}
+
+.main .center .friends_post .comment_warpper{
+    display: flex;
+    align-items: center;
+}
+
+.main .center .friends_post .comment_warpper img{
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 15px;
+}
+
+.main .center .friends_post .comment_warpper .comment_search{
+    width: 95%;
+    padding: 5px 15px;
+    background: #efefef;
+    border-radius: 20px;
+}
+
+.main .center .friends_post .comment_warpper .comment_search input{
+    width: 90%;
+    height: 30px;
+    font-size: 15px;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.main .center .friends_post .comment_warpper .comment_search button{
+    display: inline;
+    color:#999;
+    background-color: #f5f0f0;
+    font-size: 15px;
+    border: 2px solid#cccccc;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.main .center .friends_post .comment_warpper .comment_search button:hover{
+    background-color:#cccccc;
+    cursor: pointer; 
+}
+
+  
+/*-----------------right------------------*/
+.main .right{
+    width: 23%;
+    height: 92vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    background: #f5f5f5;
+    padding: 20px 12px 5px 6px;
+    position: fixed;
+    right: 0;
+}
+
+.main .right::-webkit-scrollbar{
+    width: 7px;
+}
+
+.main .right::-webkit-scrollbar-thumb{
+    border-radius: 20px;
+    background: #f5f5f5;
+}
+
+.main .right:hover::-webkit-scrollbar-thumb{
+    background: #cccccc;
+}
+
+.main .right .first_wrapper .page{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main .right .first_wrapper .page h2{
+    font-size: 17px;
+    color: black;
+}
+
+.main .right .first_wrapper .page .menu a{
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.main .right .first_wrapper .people{
+    display: flex;
+    align-items: center;
+}
+
+.main .right .first_wrapper .people img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    margin: 8px 8px 8px 0;
+    cursor: pointer;
+}
+
+.main .right .first_wrapper .people .people_name .people_name{
+    font-weight: bold;
+    color: black;
+    font-size: 12pt;
+}
+
+.main .right .first_wrapper .people .people_name .people_follow{
+    font-size: 9pt;
+    color: gray;
+}
+
+.main .right .first_wrapper .people .follow button{
+    font-weight: bold;
+    margin-left: 115px;
+    color: rgb(50, 123, 225);
+    background-color: rgb(182, 221, 247);
+    font-size: 14px;
+    border: 1px solid#cccccc;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.main .right hr{
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background: #cccccc;
+    margin: 10px auto;
+}
+
+.main .right .second_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.main .right .second_wrapper h2{
+    font-size: 20px;
+    color: black;
+    margin: 5px 0;
+}
+
+.main .right .second_wrapper .icon i{
+    color: black ;
+    margin-left: 100px;
+}
+
+.main .right .ads .ads_photo{
+    display: flex;
+    align-items: center;
+
+}
+.main .right .ads .ads_photo img{
+    width: 140px;
+    height: 160px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+    margin: 8px 15px 8px 15px;
+    cursor: pointer;
+}
+
+.main .right .ads .ads_photo .price{
+    margin-left: 25px;
+    color: rgb(101, 99, 99);
+}
+
+.main .right .ads .ads_photo .mouse, .main .right .ads .ads_photo .shampoo{
+    position: relative;
+    display: inline-block;
+}
+.main .right .ads .ads_photo .price_tag{
+    position: absolute;
+    background-color: rgb(232, 232, 232);
+    color: rgb(91, 88, 88);
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 30%;
+    width: 40px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    top: 12px;
+    right: 35px;
+}
+
+.main .right .ads .ads_photo .next_icon{
+    position: absolute;
+    background-color: rgb(232, 232, 232);
+    color: rgb(91, 88, 88);
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    top: 70px;
+    left: 0;
+}
+
+.main .right .ads .ads_photo .next_icon:hover{
+    background-color:#cccccc;
+    cursor: pointer; 
+}
+
+.main .right .friends_status{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main .right .friends_status h2{
+    font-size: 20px;
+    color: black;
+    margin: 5px 0;
+}
+.main .right .friends_profile{
+    display: flex;
+    justify-content: space-between;
+}
+.main .right .friends_profile .friends_card img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+
+.main .right .friends_profile .friends_card .circle{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #27cc37;
+    border: 2px solid #fff;
+    position: relative;
+    bottom: 15px;
+    left: 30px;
+}
+
+.main .right .pro_members h2{
+    color: black;
+    font-size: 20px;
+}
+
+.main .right .pro_members .horizontal-container{
+    display: flex;
+    gap: 7px;
+    
+}
+
+main .right .pro_members .box{
+    padding: 5px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.main .right .pro_members .member{
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 150px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    margin-top: 11px;
+    margin-left: 17px;
+    align-items: center;
+    position: relative;
+}
+.main .right .pro_members img{
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.main .right .pro_members .member .name {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.main .right .pro_members .member .followers{
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.main .right .pro_members .member button{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.main .right .pro_members .member button:hover{
+    background-color: #0056b3;
+}
+
+
+.main .right .pro_members .member .next_icon{
+    position: absolute;
+    background-color: rgb(232, 232, 232);
+    color: rgb(91, 88, 88);
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    top: 80px;
+    left: -10px;
+}
+
+.main .right .pro_members .member .next_icon:hover{
+    background-color:#cccccc;
+    cursor: pointer;
+}
+
+.main .right .trend{
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 310px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    margin: 20px 10px 50px 10px;
+    align-items: center;
+    position: relative;
+}
+
+.main .right .trend .trends{
+    margin: 8px 8px 0 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main .right .trend .hashtag{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 8px;
+}
+
+.main .right .trend .hashtag i{
+    font-size: 30px;
+    color: gray;
+}
+
+.main .right .trend .hashtag_infor p{
+    margin-left: 10px;
+    color: black;
+    font-size: 18px;
+}
+
+.main .right .trend .hashtag_infor .hashtag_post{
+    font-size: 13px;
+}
+
+.main .right .trend .hashtag .chat{
+    display: flex;
+    margin-left: 40px;
+    margin-bottom: 13px;
+    justify-content: space-between;
+    border: 1px solid;
+    background-color: rgb(64, 97, 215);
+    color: white;
+    padding: 7px;
+    border-radius: 20px;
+}
+
+.main .right .trend .hashtag .chat i{
+    color: white;
+    font-size: 25px;
+}
+
+.main .right .trend .hashtag .chat .chat_frame{
+    font-size: 20px;
+    margin-left: 8px;
+}
