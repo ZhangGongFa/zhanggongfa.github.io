@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <title>Featured Courses</title>
+    <style>
+        body, ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-family: Helvetica,sans-serif,Arial ;
+        }
+
+        body {
+            background-color: #f8f8f8;
+        }
+
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo span {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2b194e;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .search-bar input {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            width: 300px;
+            height: 28px;
+        }
+
+        .search-bar button {
+            background-color: #FE4A55;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-left: -43px;
+            height: 27px;
+        }
+
+        .menu ul {
+            display: flex;
+            gap: 25px;
+        }
+
+        .menu ul li a {
+            text-decoration: none;
+            color: #2b194e;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .menu ul li i {
+            font-size: 12px;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart {
+            position: relative;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .cart i {
+            font-size: 27px;
+            color: darkblue;
+        }
+
+        .cart .badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background-color: #FE4A55;
+            color: #fff;
+            font-size: 10px;
+            border-radius: 50%;
+            padding: 2px 5px;
+            text-align: center;
+        }
+
+        .login-btn {
+            background-color: #3BBCA7;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+       
+        .hero-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px 100px;
+            background-color: #F7F7F7;
+        }
+
+        .hero-text {
+            max-width: 50%;
+            margin-left: -70px;
+        }
+
+        .hero-text span {
+            display: inline-block;
+            background-color: #e8faf1;
+            color: #2ecc71;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2b194e;
+            margin: 20px 0;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 16px;
+            color: #767676;
+            margin-bottom: 20px;
+        }
+
+        .search-bar-large {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .search-bar-large input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            width: 70%;
+            font-size: 16px;
+            height: 30px;
+        }
+
+        .search-bar-large button {
+            background-color: #FE4A55;
+            color: white;
+            border: none;
+            border-radius: 7px ;
+            height: 40px;
+            object-fit: cover;
+            margin-top: 6px;
+            margin-left: -105px;
+        }
+
+        .features {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .features span {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .hero-images {
+            display: flex;
+            max-width: 50%;
+            margin-right: -90px;
+            gap: 20px;
+        }
+       .left-hero-images img{
+            width: 290px;
+            height: 300px;
+            border-radius: 50% 50% 0 50%;
+            margin-left: -10px;
+        }
+        .left-hero-images{
+            margin-top: 50px;
+        }
+        .info-card1{
+            border-radius: 15px 0 15px 0 ;
+            margin-top: 20px;
+        }
+       
+        .info-card1, .info-card2 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background-color: #fff;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        .info-card1 img, .info-card2 img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .info-card1 h3, .info-card2 h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #2b194e;
+        }
+
+        .info-card1 p, .info-card2 p {
+            margin: 0;
+            color: #767676;
+            font-size: 14px;
+        }
+        .main-image img{
+            width: 300px;
+            height: 320px;
+            border-radius: 50% 0 50% 0;
+
+        }
+        .sub-image img{
+            width: 250px;
+            height: 150px;
+            border-radius: 30% 0 30% 0;
+        }
+        .right-hero-images{
+            position: relative;
+        }
+        .info-card2{
+            border-radius: 15px 0 15px 0 ;
+            position: absolute;
+            margin-left: -130px;
+            margin-top: -30px;
+
+        }
+
+       
+        .featured-courses {
+            padding: 50px 100px;
+            background-color: #fff;
+            text-align: center; 
+        }
+
+        .section-title h3 {
+            font-size: 14px;
+            color: #f45b69;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2b194e;
+            margin-bottom: 30px;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .course-item {
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-image {
+            position: relative;
+        }
+
+        .course-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .price-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #3BBCA7;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .course-info {
+            padding: 20px;
+        }
+
+        .instructor {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .instructor span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            color: #767676;
+        }
+
+        .instructor span i {
+            color: #f4c150;
+        }
+
+        .course-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2b194e;
+            margin-bottom: 15px;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #767676;
+        }
+
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .course-image img, .left-hero-images img, .main-image img, .sub-image img, .categories-grid img, .skills-images img{
+            transition: transform 0.3s ease; 
+        }
+
+        .course-image:hover img, .left-hero-images:hover img, .main-image:hover img, .sub-image:hover img, .categories-grid .category-item:hover img, .skills-images img:hover{
+            transform: scale(1.1); 
+            cursor: pointer; 
+        }
+
+       .benefit .icon-circle img:hover{
+        transform: scale(1.3);
+       }
+       .blog-section img:hover{
+        transform: scale(1.1);
+       }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search here...">          
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="#">Home</a> <i class="fas fa-arrow-down"></i> </li>
+                <li><a href="#">Courses</a> <i class="fas fa-arrow-down"></i> </li>
+                <li><a href="#">Events</a> <i class="fas fa-arrow-down"></i> </li>
+                <li><a href="#">Pages</a> <i class="fas fa-arrow-down"></i> </li>
+                <li><a href="#">Blog</a> <i class="fas fa-arrow-down"></i> </li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="actions">
+            <div class="cart">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="badge">01</span>
+            </div>
+            <button class="login-btn">Login/Register</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-text">
+            <span>Start To New Journey</span>
+            <h1>Let's Learn New Courses<br>And Gain More Skills</h1>
+            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</p>
+            <div class="search-bar-large">
+                <input type="text" placeholder="Search your courses...">
+                <button><i class="fas fa-search"></i>Search Now</button>
+            </div>
+            <div class="features" style="display: flex; gap: 20px; align-items: center; font-weight: normal; white-space: nowrap;">
+                <span style="display: flex; align-items: center; color: #2B2B6D; background: none;">
+                    <span style=" margin-right: 8px;"><i class="fas fa-check"></i></span> Free For Physically Handcraft
+                </span>
+                <span style="display: flex; align-items: center; color: #2B2B6D; background: none;">
+                    <span style=" margin-right: 8px;"><i class="fas fa-check"></i></span> Course Certificate
+                </span>
+                <span style="display: flex; align-items: center; color: #2B2B6D; background: none;">
+                    <span style=" margin-right: 8px;"><i class="fas fa-check"></i></span> Easy To Enroll Courses
+                </span>
+            </div>
+        </div>
+        <div class="hero-images">
+            <div class="left-hero-images">
+                <img src="banner1.jpg">
+                <div class="info-card1">
+                    <img src="11.png" alt="Companies Icon">
+                    <div>
+                        <h3>12.5K+</h3>
+                        <p>Companies Around The World</p>
+                    </div>
+                </div>
+            </div>
+            <div class="right-hero-images">
+                <div class="info-card2">
+                    <img src="10.png" alt="Courses Icon">
+                    <div>
+                        <h3>1000+</h3>
+                        <p>Courses Available</p>
+                    </div>
+                </div>
+                    <div class="main-image">
+                        <img src="banner2.jpg" alt="Main Image">
+                    </div>
+                    
+                    <div class="sub-image">
+                        <img src="banner3.jpg" alt="Sub Image 2">
+                    </div>
+        
+                
+            </div>
+    </section>
+
+
+
+
+    <!-- Featured Courses Section -->
+    <section class="featured-courses">
+        <div class="section-title">
+            <h3>COURSES</h3>
+            <h2>Find Your Featured Courses</h2>
+        </div>
+        <div class="courses-grid">
+            <!-- Course Item 1 -->
+            <div class="course-item">
+                <div class="course-image">
+                    <img src="course5.jpg" alt="Course 1">
+                    <span class="price-badge">$19</span>
+                </div>
+                <div class="course-info">
+                    <div class="instructor">
+                        <span><img src="user3.jpg" alt="Instructor 1"> Sydney Phelps</span>
+                        <span><i class="fas fa-star"></i> 5.0</span>
+                    </div>
+                    <h3 class="course-title">Agile Crash Course Agile Project Management</h3>
+                    <div class="course-meta">
+                        <span><i class="fas fa-book"></i> 12 Lessons</span>
+                        <span><i class="fas fa-user"></i> 20 Students</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Item 2 -->
+            <div class="course-item">
+                <div class="course-image">
+                    <img src="course6.jpg" alt="Course 2">
+                    <span class="price-badge">$29</span>
+                </div>
+                <div class="course-info">
+                    <div class="instructor">
+                        <span><img src="user4.jpg" alt="Instructor 2"> Sergio Osborn</span>
+                        <span><i class="fas fa-star"></i> 4.0</span>
+                    </div>
+                    <h3 class="course-title">Deep Learning a-z Hands on Artificial Neural Networks</h3>
+                    <div class="course-meta">
+                        <span><i class="fas fa-book"></i> 9 Lessons</span>
+                        <span><i class="fas fa-user"></i> 65 Students</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Item 3 -->
+            <div class="course-item">
+                <div class="course-image">
+                    <img src="course7.jpg" alt="Course 3">
+                    <span class="price-badge">$39</span>
+                </div>
+                <div class="course-info">
+                    <div class="instructor">
+                        <span><img src="user5.jpg" alt="Instructor 3"> Stewart Burgess</span>
+                        <span><i class="fas fa-star"></i> 4.5</span>
+                    </div>
+                    <h3 class="course-title">The Data Science Courses Complete Data Science</h3>
+                    <div class="course-meta">
+                        <span><i class="fas fa-book"></i> 10 Lessons</span>
+                        <span><i class="fas fa-user"></i> 33 Students</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Item 4 -->
+            <div class="course-item">
+                <div class="course-image">
+                    <img src="course8.jpg" alt="Course 4">
+                    <span class="price-badge">$49</span>
+                </div>
+                <div class="course-info">
+                    <div class="instructor">
+                        <span><img src="user6.jpg" alt="Instructor 4"> Cornell Byrd</span>
+                        <span><i class="fas fa-star"></i> 3.5</span>
+                    </div>
+                    <h3 class="course-title">Node.js for Beginners Go From Zero Hero Node.js</h3>
+                    <div class="course-meta">
+                        <span><i class="fas fa-book"></i> 11 Lessons</span>
+                        <span><i class="fas fa-user"></i> 39 Students</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .course-item .instructor span img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .course-meta span {
+            margin-right: 15px;
+        }
+
+        .course-meta i {
+            color: #FF6F61;
+            margin-right: 5px;
+        }
+    </style>
+    
+</section>
+
+<section class="popular-categories">
+    <div class="section-title" style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Our Popular Categories</h2>
+        
+            <button class="view-all">View All Categories</button>
+        
+    </div>
+    <div class="categories-grid">
+        <div class="category-item">
+            <div class="icon">
+                <img src="22.png" alt="Development">
+            </div>
+            <h3>Development</h3>
+        </div>
+        <div class="category-item">
+            <div class="icon">
+                <img src="16.png" alt="Marketing">
+            </div>
+            <h3>Marketing</h3>
+        </div>
+        <div class="category-item">
+            <div class="icon">
+                <img src="17.png" alt="Art & Crafts">
+            </div>
+            <h3>Art & Crafts</h3>
+        </div>
+        <div class="category-item">
+            <div class="icon">
+                <img src="18.png" alt="Leadership">
+            </div>
+            <h3>Leadership</h3>
+        </div>
+        <div class="category-item">
+            <div class="icon">
+                <img src="19.png" alt="Management">
+            </div>
+            <h3>Management</h3>
+        </div>
+        <div class="category-item">
+            <div class="icon">
+                <img src="20.png" alt="Business">
+            </div>
+            <h3>Business</h3>
+        </div>
+    </div>
+</section>
+
+<style>
+    .popular-categories {
+        padding: 50px 100px;
+        background-color: #F7F7F7;
+    }
+
+    .popular-categories .section-title h2 {
+        font-size: 28px;
+        font-weight: bold;
+        color: #2b194e;
+        margin-left: 40px;
+    }
+
+    .categories-grid {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .category-item {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        width: 110px;
+    }
+
+    .category-item .icon img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 15px;
+    }
+
+    .category-item h3 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #2b194e;
+    }
+  
+    .view-all  {
+        background-color: #3BBCA7;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-left: -60px;
+
+    }
+
+    .view-all:hover {
+        background-color: #3BBCA7;
+    }
+
+    .featured-courses .courses-grid .course-item {
+        background-color: #f8f8f8;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .featured-courses .courses-grid .course-item .course-image {
+        position: relative;
+    }
+
+    .featured-courses .courses-grid .course-item .course-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .featured-courses .courses-grid .course-item .course-info {
+        padding: 20px;
+    }
+
+    .featured-courses .courses-grid .course-item .course-info .course-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #2b194e;
+    }
+</style>
+</section>
+
+<section class="skills-growth">
+    <div class="skills-content" style="display: flex; align-items: center; justify-content: space-between; padding: 50px 100px;">
+        <div class="skills-images" style="flex: 2; display: flex; gap: 20px;">
+            <div style="flex: 1;">
+                <img src="about1.jpg" alt="Teamwork" style="border-radius: 0 15% 0 15%; width: 100%; max-width: 400px;">
+            </div>
+            <div style="flex: 1;">
+                <img src="about2.jpg" alt="Collaboration" style="border-radius: 0 15% 0 15%; width: 100%; max-width: 300px;">
+                <div class="play-video" style="display: flex; height: 90px; align-items: center; gap: 10px; margin-top: 20px; justify-content: center; background-color: #40B09E; border-radius: 0 25px 0 25px; ">
+                    <button style="background-color: white; color: #FE4A55; border: none; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; font-size: 24px;">▶</button>
+                    <span style="color: #fff; font-size: 16px; font-weight: bold; padding: 10px 20px; border-radius: 5px;">Play Video</span>
+                </div>
+            </div>
+        </div>
+        <div class="skills-text" style="flex: 2; margin-left: 20px;">
+            <h2>Learn Something New Grow Your Skills From Anywhere In World</h2>
+            <p>It is a long established fact that a reader will be distracted by the readable content when looking at its layout. The point of using lorem ipsum is that it has a more.</p>
+            <div class="testimonial" style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; margin-top: 20px; display: flex; align-items: center; gap: 15px;">
+                <img src="user1.jpg" alt="Avatar" style="border-radius: 50%; width: 50px; height: 50px;">
+                <div>
+                    <p style="font-style: italic;">“It is a long established fact that a reader will be distracted by readable content of a page when looking at its layout.”</p>
+                    <span style="font-weight: bold;">- Darnell Harrison</span>
+                </div>
+            </div>
+            <button style="margin-top: 20px; background-color: #f45b69; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">View All Stories</button>
+        </div>
+    </div>
+</section>
+
+<style>
+    .skills-growth {
+        background-color: #fff;
+        padding: 50px 100px;
+    }
+
+    .skills-content h2 {
+        font-size: 28px;
+        font-weight: bold;
+        color: #2b194e;
+    }
+
+    .skills-content p {
+        color: #767676;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .skills-content button:hover {
+        background-color: #d83b50;
+    }
+
+    .play-video button:hover {
+        background-color: #d83b50;
+    }
+
+    .play-video span:hover {
+        background-color: #219150;
+    }
+</style>
+</section>
+
+<section class="learning-benefits" style="background-color: #1d1f33; padding: 50px 100px; border-radius: 0 0 60px 60px;">
+    <div style="display: flex; justify-content: space-around; align-items: center; gap: 20px;">
+        <div class="benefit" style="display: flex; align-items: center; text-align: center; color: white; padding: 20px; border-radius: 15px; background-color: transparent; width: 20%;">
+            <div class="icon-circle" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                <img src="icon1.gif" alt="Latest Skills" style="width: 40px; height: 40px;">
+            </div>
+            <h3 style="font-size: 16px; line-height: 1.5;">Learn the Latest Top Skills</h3>
+        </div>
+        <div class="benefit" style="display: flex; align-items: center; text-align: center; color: white; padding: 20px; border-radius: 15px; background-color: transparent; width: 20%;">
+            <div class="icon-circle" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                <img src="icon2.gif" alt="Industry Experts" style="width: 40px; height: 40px;">
+            </div>
+            <h3 style="font-size: 16px; line-height: 1.5;">Learn From Industry Experts</h3>
+        </div>
+        <div class="benefit" style="display: flex; align-items: center; text-align: center; color: white; padding: 20px; border-radius: 15px; background-color: transparent; width: 20%;">
+            <div class="icon-circle" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                <img src="icon3.gif" alt="Own Pace" style="width: 40px; height: 40px;">
+            </div>
+            <h3 style="font-size: 16px; line-height: 1.5;">Learn In Your Own Pace</h3>
+        </div>
+        <div class="benefit" style="display: flex; align-items: center; text-align: center; color: white; padding: 20px; border-radius: 15px; background-color: transparent; width: 20%;">
+            <div class="icon-circle" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                <img src="icon4.gif" alt="Learning Anywhere" style="width: 40px; height: 40px;">
+            </div>
+            <h3 style="font-size: 16px; line-height: 1.5;">Enjoy Learning From Anywhere</h3>
+        </div>
+    </div>
+</section>
+
+
+
+<style>
+    .learning-benefits {
+        background-image: url('background.jpg');
+        background-size: cover;
+        background-position: center;
+        color: white;
+    }
+
+    .learning-benefits h3 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .benefit h3 {
+        font-size: 14px;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <title>Blog Section</title>
+</head>
+<body>
+    <div class="blog-section" style="padding: 50px 20px; text-align: center;">
+        <h2 style="color: #c01a1a;">BLOG</h2>
+        <h3 style="margin-bottom: 40px;">Read Our Latest News</h3>
+        <div style="display: flex; justify-content: space-around;">
+            <div style="width: 31%;">
+                <img src="blog1.jpg" alt="Blog 1" style="width: 100%; border-radius: 10px; height: auto;">
+                <h3 style="color: #2a2a72; margin-top: 15px; text-align: left;">Eco-Education in Our Lives: We Can Change the Future</h3>
+                <div style="display: flex; text-align: left;; gap: 10px; color: #666; margin-top: 10px;">
+                    <span><i class="fas fa-user" style="color: #00C853;"></i> By Les Schroeder</span>
+                    <span><i class="fas fa-calendar-alt" style="color: #00C853;"></i> 19 May 2024</span>
+                </div>
+                <p style="color: #999; text-align: left;">There are many variations of passages of lorem ipsum, but the majority have suffered alteration in some form.</p>
+            </div>
+            <div style="width: 31%;">
+                <img src="blog2.jpg" alt="Blog 2" style="width: 100%; border-radius: 10px; height: auto;">
+                <h3 style="color: #2a2a72; margin-top: 15px; text-align: left;">The Link Between Vendor Certification and Growth in IT</h3>
+                <div style="display: flex; text-align: left; gap: 10px; color: #666; margin-top: 10px;">
+                    <span><i class="fas fa-user" style="color: #00C853;"></i> By Evan Proctor</span>
+                    <span><i class="fas fa-calendar-alt" style="color: #00C853;"></i> 18 May 2024</span>
+                </div>
+                <p style="color: #999; text-align: left;">There are many variations of passages of lorem ipsum, but the majority have suffered alteration in some form.</p>
+            </div>
+            <div style="width: 31%;">
+                <img src="blog3.jpg" alt="Blog 3" style="width: 100%; border-radius: 10px; height: auto;">
+                <h3 style="color: #2a2a72; margin-top: 15px; text-align: left;">Corporate Online Learning Trends 2024 You Still Need</h3>
+                <div style="display: flex; text-align: left; gap: 10px; color: #666; margin-top: 10px;">
+                    <span><i class="fas fa-user" style="color: #00C853;"></i> By Stewart Burge</span>
+                    <span><i class="fas fa-calendar-alt" style="color: #00C853;"></i> 17 May 2024</span>
+                </div>
+                <p style="color: #999; text-align: left;">There are many variations of passages of lorem ipsum, but the majority have suffered alteration in some form.</p>
+            </div>
+        </div>
+</div>
+<footer style="padding: 50px 20px; background-color: #F6FAFB;">
+    <div style="display: flex; justify-content: space-evenly; gap: 30px;">
+        <div style="width: 22%;">
+            <img src="logo.png" alt="Toledo Logo" style="width: 100px; margin-bottom: 15px;">
+            <p>There are many variations of passages of Lorem available, but the majority have suffered alteration in form injected humour or randomised.</p>
+            <div style="margin-top: 10px;">
+                <a href="#" style="margin-right: 10px;"><img src="fb.png" alt="Facebook" style="width: 40px;"></a>
+                <a href="#" style="margin-right: 10px;"><img src="in.png" alt="LinkedIn" style="width: 40px;"></a>
+                <a href="#" style="margin-right: 10px;"><img src="tw.png" alt="Twitter" style="width: 40px;"></a>
+                <a href="#"><img src="ins.png" alt="Instagram" style="width: 40px;"></a>
+            </div>
+        </div>
+        <div style="width: 22%;">
+            <h4>Important Pages</h4>
+            <ul style="list-style: none; padding: 0; line-height: 2;">
+                <li><a href="#" style="color: black; text-decoration: none;"><span style="color: #3ccca6;">&gt;</span> About Us</a></li>
+                <li><a href="#" style="color: black; text-decoration: none;"><span style="color: #3ccca6;">&gt;</span> Contact Us</a></li>
+                <li><a href="#" style="color: black; text-decoration: none;"><span style="color: #3ccca6;">&gt;</span> Instructors</a></li>
+                <li><a href="#" style="color: black; text-decoration: none;"><span style="color: #3ccca6;">&gt;</span> Become A Instructor</a></li>
+                <li><a href="#" style="color: black; text-decoration: none;"><span style="color: #3ccca6;">&gt;</span> Success Stories</a></li>
+            </ul>
+        </div>
+        <div style="width: 22%;">
+            <h4>Other Pages</h4>
+            <ul style="list-style: none; padding: 0; line-height: 2;">
+                <li><a href="#" style="color: black; text-decoration: none;"><span style="color: #3ccca6;">&gt;</span> Terms & Conditions</a></li>
+                <li><a href="#" style="color: black; text-decoration: none;"><span style="color: #3ccca6;">&gt;</span> Privacy Policy</a></li>
+                <li><a href="#" style="color: black; text-decoration: none;"><span style="color: #3ccca6;">&gt;</span> Purchase Guide</a></li>
+                <li><a href="#" style="color: black; text-decoration: none;"><span style="color: #3ccca6;">&gt;</span> Help & Support</a></li>
+                <li><a href="#" style="color: black; text-decoration: none;"><span style="color: #3ccca6;">&gt;</span> Get The App</a></li>
+            </ul>
+        </div>
+        <div style="width: 22%;">
+            <h4>Get In Touch</h4>
+            <ul style="list-style: none; padding: 0; line-height: 2;">
+                <li><p style="color: black;"><i class="fas fa-phone-alt" style="color: #00C853; margin-right: 10px;"></i>+ (800) 216 2020</p></li>
+                <li><p style="color: black;"><i class="fas fa-envelope" style="color: #00C853; margin-right: 10px;"></i>hello@toledo.com</p></li>
+                <li><p style="color: black;"><i class="fas fa-map-marker-alt" style="color: #00C853; margin-right: 10px;"></i>No. 12, Ribon Building, Walse Street, Australia</p></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
