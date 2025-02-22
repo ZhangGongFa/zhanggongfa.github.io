@@ -162,7 +162,7 @@
         }
     </style>
 </head>
-<body>
+<body onclick="playMusic('media/background_music.mp3')">
     <div class="background"></div>
     <div class="lightning"></div>
     
@@ -178,44 +178,42 @@
         </div>
     </main>
 
-    <audio id="background-music" loop>
-        <source src="media/background_music.mp3" type="audio/mpeg">
-        Trình duyệt của bạn không hỗ trợ thẻ audio.
-    </audio>
-
     <script type="module" src="settings.js"></script>
     <script>
-        const music = document.getElementById('background-music');
-        let musicPlayed = false; // Biến để theo dõi xem nhạc đã được phát chưa
+        function playMusic(musicPath) {
+            let audioPlayer = document.getElementById('myAudioPlayer');
+            if (!audioPlayer) {
+                audioPlayer = document.createElement('audio');
+                audioPlayer.id = 'myAudioPlayer';
+                document.body.appendChild(audioPlayer);
+            }
 
-        // Hàm phát nhạc
-        function playMusic() {
-            if (!musicPlayed) { // Chỉ phát nhạc nếu chưa được phát trước đó
-                music.play().catch(error => {
+            if (!audioPlayer.paused && audioPlayer.src === musicPath) {
+                audioPlayer.pause();
+            } else {
+               
+                if (audioPlayer.src !== musicPath || audioPlayer.paused) {
+                    audioPlayer.src = musicPath;
+                }
+                audioPlayer.play().catch(error => {
                     console.warn("Phát nhạc bị chặn:", error);
-                    // Xử lý lỗi nếu trình duyệt chặn phát nhạc
-                    // Có thể hiển thị một thông báo cho người dùng
-                });
-                musicPlayed = true;
+                    // Bạn có thể hiển thị thông báo cho người dùng ở đây
+                });;
             }
         }
 
-        // Gắn sự kiện chạm (touch) và click vào body
-        document.body.addEventListener('touchstart', playMusic, { once: true }); // `once: true` để chỉ chạy một lần
-        document.body.addEventListener('click', playMusic, { once: true });
-
         function triggerLightning() {
             const lightning = document.querySelector('.lightning');
-            //const background = document.querySelector('.background');
+          //  const background = document.querySelector('.background');
             lightning.style.opacity = 1;
-           // background.style.opacity = 1;
+          //  background.style.opacity = 1;
             setTimeout(() => {
                 lightning.style.opacity = 0;
-              //  background.style.opacity = 0.2;
+            //    background.style.opacity = 0.2;
             }, 200);
         }
 
-        setInterval(triggerLightning, Math.random() * 5000 + 5000); // Random lightning strikes between 5 to 10 seconds
+        setInterval(triggerLightning, Math.random() * 5000 + 5000);
     </script>
 </body>
 </html>
