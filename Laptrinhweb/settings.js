@@ -12,7 +12,7 @@ const profileSettings = {
   links: [
     { title: "Facebook", url: "https://www.facebook.com/yun.thanhzan", icon: "fa-facebook" }, // Tautan GitHub
     { title: "Instagram", url: "https://www.instagram.com/yun_shi.nv", icon: "fa-instagram" }, // Tautan Instagram
-    { title: "Telegram", url: "https://t.me/", icon: "fa-telegram" }, // Tautan Telegram
+    { title: "MoMo", url: "https://me.momo.vn/qbIZTetatpt7uPIvFdIeta", icon: "fa-momo" }, // Tautan Telegram
     { title: "Email", url: "https://www.facebook.com/yun.thanhzan", icon: "fa-envelope" }, // Tautan Email
     { title: "WhatsApp", url: "https://www.facebook.com/yun.thanhzan", icon: "fa-whatsapp" }, // Tautan WhatsApp
     { title: "YouTube", url: "https://www.facebook.com/yun.thanhzan", icon: "fa-youtube" } // Tautan YouTube
