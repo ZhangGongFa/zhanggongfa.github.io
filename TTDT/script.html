@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>So sánh VCB Digibank và Ví MoMo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .section-title {
+            background: linear-gradient(90deg, #004d40, #00796b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .vcb-color { color: #006A4E; }
+        .momo-color { color: #D9008A; }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold vcb-color">VCB <span class="text-gray-600">vs</span> <span class="momo-color">MoMo</span></h1>
+            <div class="hidden md:flex space-x-6">
+                <a href="#services" class="text-gray-600 hover:text-teal-600 transition">Dịch vụ & Tính năng</a>
+                <a href="#strategy" class="text-gray-600 hover:text-teal-600 transition">Chiến lược</a>
+                <a href="#customers" class="text-gray-600 hover:text-teal-600 transition">Khách hàng</a>
+                <a href="#script" class="text-gray-600 hover:text-teal-600 transition">Kịch bản</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <!-- Main Title -->
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold section-title mb-4">Phân Tích & So Sánh Nền Tảng Số</h1>
+            <p class="text-lg text-gray-600">Vietcombank Digibank và Ví điện tử MoMo</p>
+        </div>
+
+        <!-- Section 1: Dịch vụ và Tính năng -->
+        <section id="services" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title">Dịch Vụ và Tính Năng</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- VCB Digibank Card -->
+                <div class="card p-6 border-t-4 border-teal-600">
+                    <h3 class="text-2xl font-bold mb-4 vcb-color">VCB Digibank</h3>
+                    <ul class="space-y-3 list-disc list-inside text-gray-700">
+                        <li><strong class="font-semibold">Ngân hàng số toàn diện:</strong> Quản lý tài khoản, chuyển tiền 24/7 miễn phí (hạn mức đến 3 tỷ/ngày), chuyển tiền quốc tế.</li>
+                        <li><strong class="font-semibold">Thanh toán đa dạng:</strong> Hóa đơn điện, nước, viễn thông, học phí, viện phí, và các dịch vụ công (thuế, BHXH).</li>
+                        <li><strong class="font-semibold">Tài chính & Đầu tư:</strong> Gửi tiết kiệm online, vay tiêu dùng, vay thấu chi nhanh chóng.</li>
+                        <li><strong class="font-semibold">Quản lý thẻ:</strong> Toàn quyền quản lý thẻ (khóa/mở, đặt hạn mức, PIN) trực tuyến.</li>
+                        <li><strong class="font-semibold">Tiện ích sống:</strong> Đặt vé máy bay, khách sạn, vé tàu xe, mua sắm VnShop.</li>
+                        <li><strong class="font-semibold">Bảo mật vượt trội:</strong> Smart OTP, Tokenization, và là ngân hàng đầu tiên tích hợp ký số từ xa qua VNeID.</li>
+                    </ul>
+                </div>
+                <!-- MoMo Card -->
+                <div class="card p-6 border-t-4 border-pink-500">
+                    <h3 class="text-2xl font-bold mb-4 momo-color">Ví điện tử MoMo</h3>
+                    <ul class="space-y-3 list-disc list-inside text-gray-700">
+                         <li><strong class="font-semibold">Hệ sinh thái "siêu ứng dụng":</strong> Chuyển tiền miễn phí giữa các ví MoMo, chuyển đến 45 ngân hàng.</li>
+                        <li><strong class="font-semibold">Thanh toán QR phổ biến:</strong> Thanh toán tại hàng nghìn điểm bán lẻ, siêu thị, cửa hàng tiện lợi.</li>
+                        <li><strong class="font-semibold">Sản phẩm tài chính linh hoạt:</strong> Ví Trả Sau, Vay Nhanh, đầu tư chứng khoán (từ 10.000đ), gửi tiết kiệm (Ví Thần Tài).</li>
+                        <li><strong class="font-semibold">Nạp tiền & Ưu đãi:</strong> Nạp tiền điện thoại chiết khấu cao, săn voucher, hoàn tiền (cashback).</li>
+                        <li><strong class="font-semibold">Tiện ích hàng ngày:</strong> Mua vé xem phim, vé xe, thanh toán hóa đơn, bảo hiểm.</li>
+                        <li><strong class="font-semibold">Bảo mật đa lớp:</strong> Chuẩn PCI DSS, mã hóa SSL/TLS, xác thực sinh trắc học, AI phát hiện gian lận.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="mt-16">
+                 <h3 class="text-2xl font-bold text-center mb-8 text-gray-700">Biểu Đồ So Sánh Trực Quan</h3>
+                 <div class="grid md:grid-cols-2 gap-8">
+                     <div class="card p-4">
+                         <h4 class="text-center font-semibold mb-2">Số Lượng Người Dùng (Ước tính 2023)</h4>
+                         <canvas id="userChart"></canvas>
+                     </div>
+                     <div class="card p-4">
+                         <h4 class="text-center font-semibold mb-2">Tệp Khách Hàng Mục Tiêu</h4>
+                         <canvas id="customerSegmentChart"></canvas>
+                     </div>
+                 </div>
+            </div>
+
+        </section>
+
+        <!-- Section 2: Chiến lược và Định hướng phát triển -->
+        <section id="strategy" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title">Chiến Lược và Định Hướng Phát Triển</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-3 text-teal-700">Mục tiêu</h3>
+                    <p><strong class="vcb-color">VCB:</strong> Trở thành ngân hàng số hàng đầu Việt Nam và khu vực, cung cấp giải pháp tài chính số toàn diện.</p>
+                    <hr class="my-3">
+                    <p><strong class="momo-color">MoMo:</strong> Trở thành "siêu ứng dụng" phục vụ mọi khía cạnh đời sống, phổ cập tài chính số toàn dân.</p>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-3 text-teal-700">Đổi mới công nghệ</h3>
+                    <p><strong class="vcb-color">VCB:</strong> Ứng dụng AI, Big Data để phân tích khách hàng, cá nhân hóa trải nghiệm và tăng cường bảo mật.</p>
+                     <hr class="my-3">
+                    <p><strong class="momo-color">MoMo:</strong> Tích hợp sâu AI, eKYC, Machine Learning để định danh, phát hiện gian lận, và tối ưu sản phẩm.</p>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-3 text-teal-700">Hệ sinh thái</h3>
+                     <p><strong class="vcb-color">VCB:</strong> Liên kết với các tập đoàn tài chính lớn (VISA, MasterCard) và công ty fintech để mở rộng dịch vụ.</p>
+                     <hr class="my-3">
+                    <p><strong class="momo-color">MoMo:</strong> Hợp tác với hơn 140.000 đối tác dịch vụ (bán lẻ, ăn uống, giáo dục...) để tạo mạng lưới thanh toán rộng khắp.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Tệp khách hàng và Độ phổ biến -->
+        <section id="customers" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title">Tệp Khách Hàng và Độ Phổ Biến</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold mb-4 vcb-color">VCB Digibank</h3>
+                    <ul class="space-y-3 list-disc list-inside text-gray-700">
+                        <li><strong>Đối tượng:</strong> Người có thu nhập ổn định, dân văn phòng, chủ doanh nghiệp, người ưu tiên sự an toàn và ổn định.</li>
+                        <li><strong>Nhu cầu chính:</strong> Giao dịch lớn, gửi tiết kiệm, vay vốn, quản lý tài chính doanh nghiệp.</li>
+                        <li><strong>Kênh phổ biến:</strong> Internet Banking và Mobile Banking.</li>
+                        <li><strong>Độ phủ sóng:</strong> Rộng khắp cả nước, từ thành thị đến nông thôn nhờ mạng lưới chi nhánh vật lý.</li>
+                    </ul>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold mb-4 momo-color">Ví điện tử MoMo</h3>
+                    <ul class="space-y-3 list-disc list-inside text-gray-700">
+                        <li><strong>Đối tượng:</strong> Giới trẻ, sinh viên, người lao động tự do, người dùng thành thạo công nghệ.</li>
+                        <li><strong>Nhu cầu chính:</strong> Thanh toán nhỏ lẻ, giao dịch hàng ngày, mua sắm online, săn ưu đãi.</li>
+                        <li><strong>Kênh phổ biến:</strong> Ứng dụng di động, thanh toán QR tại cửa hàng.</li>
+                        <li><strong>Độ phủ sóng:</strong> Mạnh mẽ tại các thành phố lớn, đang dần mở rộng ra khu vực nông thôn.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Kịch bản thuyết trình -->
+        <section id="script" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-8 section-title">Kịch Bản Thuyết Trình (15 phút)</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <div id="script-container">
+                    <div class="script-item mb-6 pb-4 border-b">
+                        <h3 class="text-xl font-bold text-teal-700 mb-2">Phần 1: Mở đầu (1 phút)</h3>
+                        <p class="text-gray-700">
+                            "Kính chào thầy cô và các bạn. Em tên là... Hôm nay, em rất vui được trình bày về một chủ đề nóng hổi trong lĩnh vực tài chính số tại Việt Nam: Cuộc đối đầu giữa Ngân hàng số và Ví điện tử, cụ thể là giữa hai tên tuổi lớn: VCB Digibank và MoMo.
+                            <br><br>
+                            Trong 15 phút tới, chúng ta sẽ cùng nhau phân tích sâu về Dịch vụ & Tính năng, Chiến lược phát triển, và Tệp khách hàng của hai nền tảng này để xem họ đang cạnh tranh và định hình tương lai thanh toán số như thế nào."
+                        </p>
+                    </div>
+
+                    <div class="script-item mb-6 pb-4 border-b">
+                        <h3 class="text-xl font-bold text-teal-700 mb-2">Phần 2: So sánh Dịch vụ & Tính năng (5 phút)</h3>
+                        <p class="text-gray-700">
+                            "Đầu tiên, hãy cùng đi vào so sánh các dịch vụ và tính năng cốt lõi."
+                            <br><br>
+                            <strong>(Trình chiếu slide/phần so sánh VCB vs MoMo)</strong>
+                            <br>
+                            "<strong>VCB Digibank</strong>, với vị thế là một ngân hàng số, cung cấp một hệ thống tài chính toàn diện. Điểm mạnh nhất của họ là các giao dịch tài chính cốt lõi với hạn mức rất cao, như chuyển tiền miễn phí lên đến 3 tỷ đồng/ngày. Họ cũng là lựa chọn hàng đầu cho việc thanh toán các dịch vụ công, quản lý thẻ chuyên nghiệp và đặc biệt là bảo mật. Việc VCB là ngân hàng đầu tiên tích hợp ký số từ xa qua VNeID cho thấy sự đầu tư nghiêm túc vào an toàn cho người dùng."
+                            <br><br>
+                            "Trong khi đó, <strong>MoMo</strong> lại xây dựng một 'siêu ứng dụng' cho cuộc sống hàng ngày. Thay vì tập trung vào các giao dịch lớn, MoMo chiếm lĩnh thị trường thanh toán nhỏ lẻ. Chuyển tiền giữa các ví MoMo cực kỳ đơn giản chỉ với số điện thoại. Sức mạnh của MoMo nằm ở mạng lưới thanh toán QR rộng khắp, các sản phẩm tài chính vi mô linh hoạt như Ví Trả Sau, Vay Nhanh, và đặc biệt là hệ sinh thái ưu đãi, hoàn tiền hấp dẫn, điều mà các ngân hàng truyền thống thường ít có."
+                             <br><br>
+                            <strong>(Chuyển sang biểu đồ)</strong>
+                             "Nhìn vào biểu đồ, chúng ta có thể thấy sự khác biệt rõ rệt. Về số lượng người dùng, MoMo đang vượt trội với hơn 40 triệu người dùng, so với 25 triệu của VCB Digibank. Điều này cho thấy chiến lược tiếp cận người dùng đại chúng của MoMo đang rất hiệu quả."
+                             <br>
+                             "Biểu đồ tệp khách hàng cũng cho thấy, MoMo chủ yếu thu hút giới trẻ và sinh viên, trong khi VCB Digibank là lựa chọn của dân văn phòng và doanh nghiệp. Mỗi nền tảng đều có một 'sân chơi' riêng của mình."
+                        </p>
+                    </div>
+
+                    <div class="script-item mb-6 pb-4 border-b">
+                        <h3 class="text-xl font-bold text-teal-700 mb-2">Phần 3: Chiến lược & Định hướng phát triển (4 phút)</h3>
+                        <p class="text-gray-700">
+                           "Tiếp theo, chúng ta sẽ phân tích về tầm nhìn chiến lược của họ."
+                           <br><br>
+                           "<strong>VCB Digibank</strong> đang theo đuổi chiến lược trở thành ngân hàng số hàng đầu không chỉ ở Việt Nam mà còn cả khu vực. Họ tập trung vào việc số hóa toàn diện các dịch vụ ngân hàng truyền thống, hợp tác với các gã khổng lồ tài chính như VISA, MasterCard để đảm bảo sự ổn định và tin cậy. Tốc độ đổi mới của họ có thể chậm hơn, nhưng mỗi bước đi đều rất chắc chắn và có hệ thống."
+                            <br><br>
+                           "Ngược lại, <strong>MoMo</strong> có một chiến lược linh hoạt và tốc độ hơn rất nhiều. Mục tiêu của họ không phải là một ngân hàng, mà là một 'siêu ứng dụng' thâm nhập vào mọi ngóc ngách của đời sống. Họ đầu tư mạnh vào AI và Machine Learning để cá nhân hóa trải nghiệm và nhanh chóng tung ra các sản phẩm mới. Thay vì hợp tác với các định chế tài chính lớn, MoMo xây dựng một mạng lưới đối tác bán lẻ khổng lồ, tạo ra một hệ sinh thái mà người dùng khó có thể rời bỏ."
+                        </p>
+                    </div>
+
+                     <div class="script-item mb-6 pb-4 border-b">
+                        <h3 class="text-xl font-bold text-teal-700 mb-2">Phần 4: Tệp khách hàng & Kết luận (5 phút)</h3>
+                        <p class="text-gray-700">
+                            "Từ những chiến lược đó, chúng ta có thể thấy rõ hai tệp khách hàng mục tiêu khác biệt."
+                            <br><br>
+                            "<strong>VCB Digibank</strong> phục vụ nhóm người dùng cần sự <strong>ổn định, an toàn và chuyên nghiệp</strong>. Đó là những người trưởng thành có thu nhập ổn định, cần quản lý các khoản tiền lớn, gửi tiết kiệm, hay các doanh nghiệp cần một nền tảng giao dịch đáng tin cậy. Độ phủ sóng của VCB trên toàn quốc, cả ở nông thôn, cũng là một lợi thế lớn."
+                             <br><br>
+                            "Trong khi đó, <strong>MoMo</strong> là 'sân chơi' của thế hệ trẻ - những người yêu thích sự <strong>nhanh chóng, tiện lợi và công nghệ</strong>. Họ dùng MoMo để trả tiền một ly cà phê, mua vé xem phim, chia tiền ăn với bạn bè. MoMo phổ biến mạnh mẽ ở các thành phố lớn, nơi thói quen thanh toán không tiền mặt đã trở nên quen thuộc."
+                            <br><br>
+                            <strong>Kết luận:</strong>
+                            <br>
+                            "Tóm lại, VCB Digibank và MoMo không hoàn toàn là đối thủ trực tiếp của nhau, mà họ đang bổ sung cho nhau trong một thị trường tài chính số đa dạng.
+                            <br>
+                            - <strong>VCB Digibank</strong> đóng vai trò là 'xương sống' tài chính, cung cấp các dịch vụ ngân hàng cốt lõi một cách an toàn và toàn diện.
+                            <br>
+                            - <strong>MoMo</strong> lại là 'cánh tay nối dài', mang tài chính số đến gần hơn với các hoạt động hàng ngày một cách tiện lợi và thú vị.
+                            <br><br>
+                            Sự phát triển song song của cả hai mô hình này không chỉ thúc đẩy cạnh tranh lành mạnh mà còn góp phần quan trọng vào việc xây dựng một xã hội không tiền mặt tại Việt Nam.
+                            <br><br>
+                            Bài thuyết trình của em đến đây là kết thúc. Cảm ơn thầy cô và các bạn đã lắng nghe. Em rất mong nhận được những câu hỏi và góp ý ạ."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Data for charts based on the provided document
+        const userChartCtx = document.getElementById('userChart').getContext('2d');
+        const userChart = new Chart(userChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['VCB Digibank', 'Ví MoMo'],
+                datasets: [{
+                    label: 'Số người dùng (triệu)',
+                    data: [25, 40],
+                    backgroundColor: [
+                        'rgba(0, 106, 78, 0.7)',
+                        'rgba(217, 0, 138, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(0, 106, 78, 1)',
+                        'rgba(217, 0, 138, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Triệu người'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        const customerSegmentChartCtx = document.getElementById('customerSegmentChart').getContext('2d');
+        const customerSegmentChart = new Chart(customerSegmentChartCtx, {
+            type: 'pie',
+            data: {
+                labels: ['VCB: Doanh nghiệp/Văn phòng', 'VCB: Khác', 'MoMo: Giới trẻ/Sinh viên', 'MoMo: Khác'],
+                datasets: [{
+                    label: 'Tệp Khách Hàng',
+                    data: [35, 15, 40, 10], // Representative data
+                    backgroundColor: [
+                        'rgba(0, 106, 78, 0.8)',
+                        'rgba(0, 106, 78, 0.4)',
+                        'rgba(217, 0, 138, 0.8)',
+                        'rgba(217, 0, 138, 0.4)'
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += context.parsed + '%';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
