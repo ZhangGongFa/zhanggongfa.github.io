@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>So sánh VCB Digibank và Ví MoMo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .section-title {
+            background: linear-gradient(90deg, #004d40, #00796b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .vcb-color { color: #006A4E; }
+        .momo-color { color: #D9008A; }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .comparison-table td, .comparison-table th {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .comparison-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .comparison-table .criteria-col {
+            background-color: #f9fafb;
+        }
+        .app-screenshot {
+            border-radius: 1rem; /* 16px */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out;
+            max-height: 450px;
+            object-fit: contain;
+            margin: 0 auto;
+        }
+        .app-screenshot:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold vcb-color">VCB <span class="text-gray-600">vs</span> <span class="momo-color">MoMo</span></h1>
+            <div class="hidden md:flex space-x-6">
+                 <a href="#interface" class="text-gray-600 hover:text-teal-600 transition">Giao diện</a>
+                 <a href="#features" class="text-gray-600 hover:text-teal-600 transition">Tính Năng</a>
+                <a href="#services" class="text-gray-600 hover:text-teal-600 transition">So sánh</a>
+                <a href="#charts" class="text-gray-600 hover:text-teal-600 transition">Biểu đồ</a>
+                <a href="#strategy" class="text-gray-600 hover:text-teal-600 transition">Chiến lược</a>
+                <a href="#customers" class="text-gray-600 hover:text-teal-600 transition">Khách hàng</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <!-- Main Title -->
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold section-title mb-4">Phân Tích & So Sánh Nền Tảng Số</h1>
+            <p class="text-lg text-gray-600">Vietcombank Digibank và Ví điện tử MoMo</p>
+        </div>
+
+        <!-- Section 0: App Interface -->
+        <section id="interface" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title">Giao Diện Chính</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <!-- VCB Digibank Interface -->
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold mb-6 vcb-color">VCB Digibank</h3>
+                    <img src="https://scontent.fhan4-6.fna.fbcdn.net/v/t39.30808-6/505921481_2191143564648541_5374698618861883510_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_ohc=JvF2Co9doj8Q7kNvwHUjYBn&_nc_oc=AdkqC_aXWVI1LmtiqeFpN8K1cPhyFzgHYa9F7I6M0G6JXsggGfPPDE0dTqvTOt3bMZI&_nc_zt=23&_nc_ht=scontent.fhan4-6.fna&_nc_gid=Sac49XNqIIhwRhkWnmOl1g&oh=00_AfNHcIrmM_anrONKhFEqsVlcVGDXtAlOsSgYWiMnrtREwg&oe=684EA683" alt="Giao diện chính của VCB Digibank" class="app-screenshot">
+                    <p class="mt-4 text-gray-600">Giao diện chuyên nghiệp, tập trung vào các tính năng ngân hàng cốt lõi.</p>
+                </div>
+                <!-- MoMo Interface -->
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold mb-6 momo-color">Ví điện tử MoMo</h3>
+                    <img src="https://scontent.fhan4-5.fna.fbcdn.net/v/t39.30808-6/505878373_2191143561315208_7673272217111099388_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=3dF2R-9YJUkQ7kNvwF00-c0&_nc_oc=Adl8W4uFY867Osi-bNKwlbg2Jf1ZRNn6gjAOvApfKA4NDItecnxNOwCHQtANzFyvwbw&_nc_zt=23&_nc_ht=scontent.fhan4-5.fna&_nc_gid=Zng82Lsb32fwkuUuGpt_Zw&oh=00_AfMB0SBA8A4UfwsYrvSCB9jBzFeLVZXqWBY_F6CYHcvc7Q&oe=684E9762" alt="Giao diện chính của Ví MoMo" class="app-screenshot">
+                     <p class="mt-4 text-gray-600">Giao diện trẻ trung, màu sắc, tích hợp nhiều dịch vụ và tiện ích sống.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 0.5: Visual Feature Comparison -->
+        <section id="features" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title">So Sánh Tính Năng Trực Quan</h2>
+            <!-- Feature Pair 1: Nạp tiền điện thoại -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-center text-gray-700 mb-6">Tính năng: Nạp tiền điện thoại</h3>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="card p-4"><img src="https://scontent.fhan3-2.fna.fbcdn.net/v/t39.30808-6/506032579_2191166371312927_7575471536454121422_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2S3Wnk7WtokQ7kNvwGq3xKf&_nc_oc=AdkNn1IzBoQbikbDdWAn1ZYib6BPOFW1g-DNZPHoOnzt3n0AR1P2zJUzDClKZI2yeqw&_nc_zt=23&_nc_ht=scontent.fhan3-2.fna&_nc_gid=PeZVNHUKIlutKXgkVI43eA&oh=00_AfOrV1q5RG57CmTjkHHNERSCLavKJm7-qcnn1AOsTzk7ZA&oe=684EB05E" alt="Nạp tiền điện thoại VCB" class="app-screenshot"></div>
+                    <div class="card p-4"><img src="https://scontent.fhan4-5.fna.fbcdn.net/v/t39.30808-6/506269997_2191166374646260_3536294293119874151_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=cgpAydc1ZoMQ7kNvwHiBFmH&_nc_oc=Adn7_3OI3ucjnqDm0qvGLTdOrSdPPruxnZry2v1cUiUWhk0yVwIS9CEQYJK-Rtn1muo&_nc_zt=23&_nc_ht=scontent.fhan4-5.fna&_nc_gid=m8_0H1pOcCjAEKBvwQdKEQ&oh=00_AfOhkMY5u2BuO5daRvFFb3Jqjk3TzOsYcDBdn4t_r0uDGQ&oe=684E9C09" alt="Nạp tiền điện thoại MoMo" class="app-screenshot"></div>
+                </div>
+            </div>
+            <!-- Feature Pair 2: Lịch sử giao dịch -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-center text-gray-700 mb-6">Tính năng: Lịch sử giao dịch</h3>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="card p-4"><img src="https://scontent.fhan4-6.fna.fbcdn.net/v/t39.30808-6/506112203_2191166291312935_1513420450652338824_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_ohc=y-vtYU7eojsQ7kNvwHpRF0w&_nc_oc=AdnlcDDJAaofN6YTbUtUPyHEpnwrCLYXCKJLBbSq4e3jyvTn5VP3gobIQsOyArb9xOA&_nc_zt=23&_nc_ht=scontent.fhan4-6.fna&_nc_gid=DJAUpQR_bDN9NxGKJ4KOaQ&oh=00_AfN9pHawSxgmpkyzOe2w5LXyKEv0G0wuElKocys2IBSxKw&oe=684EA7CF" alt="Lịch sử giao dịch VCB" class="app-screenshot"></div>
+                    <div class="card p-4"><img src="https://scontent.fhan4-5.fna.fbcdn.net/v/t39.30808-6/505954191_2191166297979601_8528994437884511516_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=BeS6Y79JnOQQ7kNvwE307NW&_nc_oc=AdmifKLX_6lN5Ne4LV879aML6yscMvRg-aWOfRkOxjYOJPV3ifdJRn5D0J5HTd_Rxqw&_nc_zt=23&_nc_ht=scontent.fhan4-5.fna&_nc_gid=XmtpDYZlCQs_apYyZxI96Q&oh=00_AfMnS1oz1iiTVn0xgmEIcDMhY0qMBWqpjX57QzExgca6kw&oe=684EB3AC" alt="Lịch sử giao dịch MoMo" class="app-screenshot"></div>
+                </div>
+            </div>
+            <!-- Feature Pair 3: Hỗ trợ khách hàng -->
+             <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-center text-gray-700 mb-6">Tính năng: Hỗ trợ khách hàng (Chatbot)</h3>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="card p-4"><img src="https://scontent.fhan4-1.fna.fbcdn.net/v/t39.30808-6/506419019_2191166211312943_4308658372525754352_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=5W6Qu0rHNu4Q7kNvwGAYxfs&_nc_oc=AdkTcHQlY5LSLkwpVldqeqkTnn9RGFw3Asgk-v8usc21MmRYCdYuMSDGNb6KRlKib5k&_nc_zt=23&_nc_ht=scontent.fhan4-1.fna&_nc_gid=ia542ZUg1yTksqJR6Ak-6Q&oh=00_AfPpCCR4goxKAbYVYrKUX2Oyiiim526Lr83qfZqbg0mZAw&oe=684EBA3B" alt="Chatbot VCB Digibot" class="app-screenshot"></div>
+                    <div class="card p-4"><img src="https://scontent.fhan3-2.fna.fbcdn.net/v/t39.30808-6/506404996_2191166294646268_2129292201365693224_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_ohc=0bRNUwSyjJ0Q7kNvwG2rIuN&_nc_oc=AdkeVFtlLevVwL4rXTUnW4xI0ZViMV9OJfvKRceywQ85Yu6UQVBvd3R656R2AKTuNVI&_nc_zt=23&_nc_ht=scontent.fhan3-2.fna&_nc_gid=twGFZo73k-L1Rpjxmo271g&oh=00_AfNX0zWv0SmHWrv8puqKaENEyYw3uW-V7MehMOgg70e_6A&oe=684E9D90" alt="Trợ lý ảo MoMo" class="app-screenshot"></div>
+                </div>
+            </div>
+             <!-- Feature Pair 4: Danh mục dịch vụ -->
+            <div>
+                <h3 class="text-2xl font-semibold text-center text-gray-700 mb-6">Tính năng: Khám phá dịch vụ</h3>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="card p-4"><img src="https://scontent.fhan3-4.fna.fbcdn.net/v/t39.30808-6/506064532_2191166217979609_9132969849685858757_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=127cfc&_nc_ohc=L13vGfRRWeYQ7kNvwE5uJer&_nc_oc=AdlDrww0iJEBYAUYB8SJE858dIwTPSXmALPOqv9ph60Zoi5lsjuzCbAK6ccTciQMPRM&_nc_zt=23&_nc_ht=scontent.fhan3-4.fna&_nc_gid=Iu8zOfOUFJQ3aIVoPeN_pw&oh=00_AfObjwGvr9aAbOBC7ONnaIw3Jiur8iTcxqQRx-5G2aw8vw&oe=684EAE52" alt="Các dịch vụ của VCB" class="app-screenshot"></div>
+                    <div class="card p-4"><img src="https://scontent.fhan4-1.fna.fbcdn.net/v/t39.30808-6/506137788_2191166214646276_7249686770678594989_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=FgP3SexRdQsQ7kNvwFptnQo&_nc_oc=Adnt08SUpLIl8gm_IXnV044pdKxdXbyD7bsGnu6ySb-_prEvnPOyQq_RAOGpfKqa_PY&_nc_zt=23&_nc_ht=scontent.fhan4-1.fna&_nc_gid=NVSf2UWjIxbDGJukD4JvVQ&oh=00_AfPTInWyPxnJBEy1KSakJwG49MnO407uuQ9r3Ai9CJ3HjA&oe=684E9F84" alt="Các dịch vụ của MoMo" class="app-screenshot"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Detailed Comparison Table -->
+        <section id="services" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title">Bảng So Sánh Tổng Quan</h2>
+            <div class="card overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm comparison-table">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="py-4 px-6 text-left text-base font-bold text-gray-700 w-1/4">Tiêu chí</th>
+                                <th class="py-4 px-6 text-left text-base font-bold vcb-color w-3/8">VCB Digibank</th>
+                                <th class="py-4 px-6 text-left text-base font-bold momo-color w-3/8">Ví điện tử MoMo</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-4 px-6 font-bold text-gray-800 criteria-col">Tổng quan</td>
+                                <td class="py-4 px-6">Nền tảng ngân hàng số toàn diện, phục vụ khách hàng cá nhân, SME và tổ chức.</td>
+                                <td class="py-4 px-6">"Siêu ứng dụng" hàng đầu với hệ sinh thái đa dạng, đóng vai trò trợ lý tài chính cá nhân.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-4 px-6 font-bold text-gray-800 criteria-col">Chuyển tiền</td>
+                                <td class="py-4 px-6"><strong>Miễn phí</strong> chuyển tiền 24/7 nội bộ và liên ngân hàng. Hạn mức lên đến <strong>3 tỷ VND/ngày</strong>. Hỗ trợ chuyển tiền quốc tế.</td>
+                                <td class="py-4 px-6"><strong>Miễn phí</strong> giữa các ví MoMo. Chuyển nhanh đến 45 ngân hàng. Hạn mức <strong>30 triệu VND/ngày</strong>.</td>
+                            </tr>
+                             <tr class="hover:bg-gray-50">
+                                <td class="py-4 px-6 font-bold text-gray-800 criteria-col">Thanh toán Hóa đơn</td>
+                                <td class="py-4 px-6">Thanh toán đa dạng hóa đơn (điện, nước, học phí...). Đặc biệt hỗ trợ <strong>thanh toán dịch vụ công</strong> (thuế, BHXH, phí cảng).</td>
+                                <td class="py-4 px-6">Thanh toán các hóa đơn hàng ngày. Mạnh về thanh toán QR tại các điểm bán lẻ, cửa hàng.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-4 px-6 font-bold text-gray-800 criteria-col">Tiết kiệm & Đầu tư</td>
+                                <td class="py-4 px-6">Cung cấp các sản phẩm ngân hàng truyền thống: gửi tiết kiệm online, vay tiêu dùng, vay thấu chi.</td>
+                                <td class="py-4 px-6">Sản phẩm tài chính vi mô linh hoạt: <strong>Ví Thần Tài</strong> (tiết kiệm từ 10.000đ), đầu tư chứng chỉ quỹ, <strong>Ví Trả Sau, Vay Nhanh</strong>.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-4 px-6 font-bold text-gray-800 criteria-col">Ưu đãi, Khuyến mãi</td>
+                                <td class="py-4 px-6">Ít chương trình khuyến mãi nổi bật.</td>
+                                <td class="py-4 px-6">Thường xuyên có các chương trình <strong>hoàn tiền (cashback)</strong>, giảm giá, voucher từ đối tác.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-4 px-6 font-bold text-gray-800 criteria-col">Bảo mật</td>
+                                <td class="py-4 px-6">Bảo mật cấp ngân hàng: Smart OTP, Tokenization, 3D Secure. Tiên phong tích hợp <strong>ký số qua VNeID</strong>.</td>
+                                <td class="py-4 px-6">Đạt chuẩn quốc tế <strong>PCI DSS</strong> cấp cao nhất. Bảo mật đa lớp: OTP, sinh trắc học, AI phát hiện gian lận.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1.5: Charts -->
+        <section id="charts" class="mb-20">
+             <h2 class="text-3xl font-bold text-center mb-12 section-title">Biểu Đồ Trực Quan</h2>
+             <div class="grid md:grid-cols-2 gap-8">
+                 <div class="card p-4">
+                     <h3 class="text-center font-semibold mb-2 text-gray-700">Số Lượng Người Dùng (Ước tính 2023)</h3>
+                     <canvas id="userChart"></canvas>
+                 </div>
+                 <div class="card p-4">
+                     <h3 class="text-center font-semibold mb-2 text-gray-700">Phân Khúc Khách Hàng Mục Tiêu</h3>
+                     <canvas id="customerSegmentChart"></canvas>
+                 </div>
+             </div>
+        </section>
+
+        <!-- Section 2: Chiến lược và Định hướng phát triển -->
+        <section id="strategy" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title">Chiến Lược và Định Hướng Phát Triển</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-3 text-teal-700">Mục tiêu</h3>
+                    <p><strong class="vcb-color">VCB:</strong> Trở thành ngân hàng số hàng đầu Việt Nam và khu vực, cung cấp giải pháp tài chính số toàn diện.</p>
+                    <hr class="my-3">
+                    <p><strong class="momo-color">MoMo:</strong> Trở thành "siêu ứng dụng" phục vụ mọi khía cạnh đời sống, phổ cập tài chính số toàn dân.</p>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-3 text-teal-700">Đổi mới công nghệ</h3>
+                    <p><strong class="vcb-color">VCB:</strong> Ứng dụng AI, Big Data để phân tích khách hàng, cá nhân hóa trải nghiệm và tăng cường bảo mật.</p>
+                     <hr class="my-3">
+                    <p><strong class="momo-color">MoMo:</strong> Tích hợp sâu AI, eKYC, Machine Learning để định danh, phát hiện gian lận, và tối ưu sản phẩm.</p>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-3 text-teal-700">Hệ sinh thái</h3>
+                     <p><strong class="vcb-color">VCB:</strong> Liên kết với các tập đoàn tài chính lớn (VISA, MasterCard) và công ty fintech để mở rộng dịch vụ.</p>
+                     <hr class="my-3">
+                    <p><strong class="momo-color">MoMo:</strong> Hợp tác với hơn 140.000 đối tác dịch vụ (bán lẻ, ăn uống, giáo dục...) để tạo mạng lưới thanh toán rộng khắp.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Tệp khách hàng và Độ phổ biến -->
+        <section id="customers" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title">Tệp Khách Hàng và Độ Phổ Biến</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card p-6 border-t-4 border-teal-600">
+                    <h3 class="text-2xl font-bold mb-4 vcb-color">VCB Digibank</h3>
+                    <ul class="space-y-3 list-disc list-inside text-gray-700">
+                        <li><strong>Đối tượng:</strong> Người có thu nhập ổn định, dân văn phòng, chủ doanh nghiệp, người ưu tiên sự an toàn và ổn định.</li>
+                        <li><strong>Nhu cầu chính:</strong> Giao dịch lớn, gửi tiết kiệm, vay vốn, quản lý tài chính doanh nghiệp.</li>
+                        <li><strong>Kênh phổ biến:</strong> Internet Banking và Mobile Banking.</li>
+                        <li><strong>Độ phủ sóng:</strong> Rộng khắp cả nước, từ thành thị đến nông thôn nhờ mạng lưới chi nhánh vật lý.</li>
+                    </ul>
+                </div>
+                <div class="card p-6 border-t-4 border-pink-500">
+                    <h3 class="text-2xl font-bold mb-4 momo-color">Ví điện tử MoMo</h3>
+                    <ul class="space-y-3 list-disc list-inside text-gray-700">
+                        <li><strong>Đối tượng:</strong> Giới trẻ, sinh viên, người lao động tự do, người dùng thành thạo công nghệ.</li>
+                        <li><strong>Nhu cầu chính:</strong> Thanh toán nhỏ lẻ, giao dịch hàng ngày, mua sắm online, săn ưu đãi.</li>
+                        <li><strong>Kênh phổ biến:</strong> Ứng dụng di động, thanh toán QR tại cửa hàng.</li>
+                        <li><strong>Độ phủ sóng:</strong> Mạnh mẽ tại các thành phố lớn, đang dần mở rộng ra khu vực nông thôn.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white py-6 mt-12 border-t">
+        <div class="container mx-auto text-center text-gray-500">
+            <p>&copy; 2024 - Bài thuyết trình phân tích thị trường tài chính số.</p>
+        </div>
+    </footer>
+
+    <script>
+        const userChartCtx = document.getElementById('userChart').getContext('2d');
+        const userChart = new Chart(userChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['VCB Digibank', 'Ví MoMo'],
+                datasets: [{
+                    label: 'Số người dùng (triệu)',
+                    data: [25, 40],
+                    backgroundColor: [
+                        'rgba(0, 106, 78, 0.7)',
+                        'rgba(217, 0, 138, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(0, 106, 78, 1)',
+                        'rgba(217, 0, 138, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Triệu người'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        const customerSegmentChartCtx = document.getElementById('customerSegmentChart').getContext('2d');
+        const customerSegmentChart = new Chart(customerSegmentChartCtx, {
+            type: 'pie',
+            data: {
+                labels: ['VCB: Doanh nghiệp/Văn phòng', 'VCB: Khác', 'MoMo: Giới trẻ/Sinh viên', 'MoMo: Khác'],
+                datasets: [{
+                    label: 'Tệp Khách Hàng',
+                    data: [35, 15, 40, 10], 
+                    backgroundColor: [
+                        'rgba(0, 106, 78, 0.8)',
+                        'rgba(0, 106, 78, 0.4)',
+                        'rgba(217, 0, 138, 0.8)',
+                        'rgba(217, 0, 138, 0.4)'
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += context.parsed + '%';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
