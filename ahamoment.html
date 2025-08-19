@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tư Vấn Vòng Trầm Phong Thủy - 4 Đỉnh Cao Cuộc Đời</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .card-gradient {
+            background: linear-gradient(145deg, #f0e6d2, #c8bdae);
+        }
+        .result-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-gradient {
+            background-image: linear-gradient(to right, #8E2DE2 0%, #4A00E0 51%, #8E2DE2 100%);
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+        }
+        .btn-gradient:hover {
+            background-position: right center;
+        }
+        .pyramid-node {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .pyramid-node:hover {
+            transform: scale(1.1);
+        }
+        .pyramid-node .value { font-size: 1.5rem; }
+        .pyramid-node .label { font-size: 0.75rem; opacity: 0.9; }
+        .base-node { background-color: #6d28d9; width: 64px; height: 64px; }
+        .peak-node { background-color: #c026d3; width: 72px; height: 72px; }
+        .peak-node-top { background-color: #be185d; }
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #a855f7;
+            color: #a855f7;
+            background-color: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .lang-btn.active {
+            background-color: #a855f7;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-100" style="background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+        <!-- Language Switcher -->
+        <div class="text-right mb-4">
+            <button id="lang-vi" class="lang-btn rounded-l-md">Tiếng Việt</button>
+            <button id="lang-zh" class="lang-btn rounded-r-md">中文</button>
+        </div>
+
+        <!-- Header Section -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2" data-lang-key="mainTitle">Khám Phá Bản Thân & Tìm Vòng Trầm Phù Hợp</h1>
+            <p class="text-gray-600" data-lang-key="subTitle">Nhập thông tin của bạn để hiểu rõ hơn về Mệnh, Can Chi và 4 Đỉnh Cao Cuộc Đời.</p>
+        </header>
+
+        <!-- Input Form Section -->
+        <div class="card-gradient p-6 sm:p-8 rounded-2xl shadow-lg mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1" data-lang-key="fullNameLabel">Họ và Tên</label>
+                    <input type="text" id="fullName" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500" data-lang-key-placeholder="fullNamePlaceholder">
+                </div>
+                <div>
+                    <label for="birthDate" class="block text-sm font-medium text-gray-700 mb-1" data-lang-key="birthDateLabel">Ngày Tháng Năm Sinh</label>
+                    <input type="date" id="birthDate" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                </div>
+            </div>
+            <div class="mt-6 text-center">
+                <button id="calculateBtn" class="btn-gradient font-bold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300" data-lang-key="calculateBtn">
+                    Xem Kết Quả
+                </button>
+            </div>
+        </div>
+        
+        <!-- Loading Spinner -->
+        <div id="loading" class="text-center my-8 hidden">
+             <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-purple-600"></div>
+             <p class="mt-2 text-gray-600" data-lang-key="loadingText">Đang phân tích, vui lòng chờ...</p>
+        </div>
+
+
+        <!-- Error Message -->
+        <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative mb-6" role="alert">
+            <strong class="font-bold" data-lang-key="errorTitle">Lỗi!</strong>
+            <span class="block sm:inline" data-lang-key="errorText">Vui lòng nhập đầy đủ họ tên và ngày sinh hợp lệ.</span>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="hidden space-y-8">
+            <!-- Basic Info Card -->
+            <div class="result-card p-6 rounded-2xl shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-purple-300 pb-2" data-lang-key="overviewTitle">Tổng Quan Về Bạn</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                    <div>
+                        <p class="text-sm text-gray-500" data-lang-key="resultNameLabel">Họ và Tên</p>
+                        <p id="resultName" class="text-lg font-semibold text-purple-800"></p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500" data-lang-key="resultLunarYearLabel">Năm Sinh Âm Lịch</p>
+                        <p id="resultLunarYear" class="text-lg font-semibold text-purple-800"></p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500" data-lang-key="resultMệnhLabel">Mệnh Ngũ Hành</p>
+                        <p id="resultMệnh" class="text-lg font-semibold text-purple-800"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 Peaks of Life Card -->
+            <div class="result-card p-6 rounded-2xl shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-purple-300 pb-2" data-lang-key="pyramidTitle">Biểu Đồ 4 Đỉnh Cao Cuộc Đời</h2>
+                <div class="w-full max-w-lg mx-auto h-96 relative my-4">
+                    <svg id="pyramidLines" class="absolute top-0 left-0 w-full h-full" style="z-index: 0;"></svg>
+                    <div id="baseNode1" class="pyramid-node base-node" style="bottom: 5%; left: 0;"></div>
+                    <div id="baseNode2" class="pyramid-node base-node" style="bottom: 5%; left: 50%; transform: translateX(-50%);"></div>
+                    <div id="baseNode3" class="pyramid-node base-node" style="bottom: 5%; right: 0;"></div>
+                    <div id="peakNode1" class="pyramid-node peak-node" style="bottom: 35%; left: 25%; transform: translateX(-50%);"></div>
+                    <div id="peakNode2" class="pyramid-node peak-node" style="bottom: 35%; right: 25%; transform: translateX(50%);"></div>
+                    <div id="peakNode3" class="pyramid-node peak-node" style="bottom: 65%; left: 50%; transform: translateX(-50%);"></div>
+                    <div id="peakNode4" class="pyramid-node peak-node peak-node-top" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+                </div>
+                
+                <h3 class="text-xl font-bold text-gray-800 mt-8 mb-4 border-b border-purple-200 pb-2" data-lang-key="peakMeaningTitle">Diễn Giải Các Đỉnh Cao</h3>
+                <div id="peaksMeaningContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+            </div>
+
+            <!-- Recommendation Card -->
+            <div class="result-card p-6 rounded-2xl shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-purple-300 pb-2" data-lang-key="recoTitle">Gợi Ý Vòng Trầm Dành Cho Bạn</h2>
+                <div id="recommendationContainer" class="flex flex-col md:flex-row items-center gap-6">
+                    <img id="recoImage" src="https://placehold.co/200x200/e2e8f0/333333?text=V%C3%B2ng+Tr%E1%BA%A7m" alt="Vòng trầm hương gợi ý" class="w-48 h-48 object-cover rounded-lg shadow-lg">
+                    <div class="text-center md:text-left flex-1">
+                        <h3 id="recoTitleText" class="text-xl font-semibold text-purple-900"></h3>
+                        <p id="recoText" class="mt-2 text-gray-700"></p>
+                        <p id="recoAdvice" class="mt-3 text-gray-800 bg-purple-50 p-3 rounded-lg border-l-4 border-purple-400"></p>
+                        <p class="mt-4 font-semibold text-gray-800"><span data-lang-key="recoStonesLabel">Các loại đá năng lượng phù hợp</span>: <span id="recoStones" class="font-normal text-purple-700"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>&copy; 2025 Vòng Trầm Hương. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- MULTI-LANGUAGE DATA ---
+        const translations = {
+            vi: {
+                mainTitle: "Khám Phá Bản Thân & Tìm Vòng Trầm Phù Hợp",
+                subTitle: "Nhập thông tin của bạn để hiểu rõ hơn về Mệnh, Can Chi và 4 Đỉnh Cao Cuộc Đời.",
+                fullNameLabel: "Họ và Tên",
+                fullNamePlaceholder: "Ví dụ: Nguyễn Văn An",
+                birthDateLabel: "Ngày Tháng Năm Sinh",
+                calculateBtn: "Xem Kết Quả",
+                loadingText: "Đang phân tích, vui lòng chờ...",
+                errorTitle: "Lỗi!",
+                errorText: "Vui lòng nhập đầy đủ họ tên và ngày sinh hợp lệ.",
+                errorYearRange: "Năm sinh của bạn nằm ngoài dữ liệu của chúng tôi (1940-2030).",
+                overviewTitle: "Tổng Quan Về Bạn",
+                resultNameLabel: "Họ và Tên",
+                resultLunarYearLabel: "Năm Sinh Âm Lịch",
+                resultMệnhLabel: "Mệnh Ngũ Hành",
+                pyramidTitle: "Biểu Đồ 4 Đỉnh Cao Cuộc Đời",
+                peakMeaningTitle: "Diễn Giải Các Đỉnh Cao",
+                recoTitle: "Gợi Ý Vòng Trầm Dành Cho Bạn",
+                recoStonesLabel: "Các loại đá năng lượng phù hợp",
+                footer: "&copy; 2024 Vòng Trầm Hương An Nhiên. All rights reserved.",
+                menhPrefix: "Mệnh ",
+                peakTitle: "Đỉnh Cao",
+                peakAge: "tuổi",
+                peakNumber: "Con số đỉnh cao",
+                noData: "Không có dữ liệu chi tiết cho con số này ở độ tuổi của bạn.",
+                pyramidLabels: { month: "Tháng", day: "Ngày", year: "Năm" }
+            },
+            zh: {
+                mainTitle: "探索自我 & 寻找合适的沉香手串",
+                subTitle: "输入您的信息，以更好地了解您的五行、天干地支和人生四大巅峰。",
+                fullNameLabel: "姓名",
+                fullNamePlaceholder: "例如: 阮文安",
+                birthDateLabel: "出生日期",
+                calculateBtn: "查看结果",
+                loadingText: "正在分析，请稍候...",
+                errorTitle: "错误!",
+                errorText: "请输入有效的全名和出生日期。",
+                errorYearRange: "您的出生年份超出了我们的数据范围 (1940-2030)。",
+                overviewTitle: "您的概览",
+                resultNameLabel: "姓名",
+                resultLunarYearLabel: "农历出生年份",
+                resultMệnhLabel: "五行命理",
+                pyramidTitle: "人生四大巅峰图",
+                peakMeaningTitle: "巅峰解读",
+                recoTitle: "给您的沉香手串建议",
+                recoStonesLabel: "适合的能量宝石",
+                footer: "&copy; 2025 沉香手串. 版权所有.",
+                menhPrefix: "命 ",
+                peakTitle: "巅峰",
+                peakAge: "岁",
+                peakNumber: "巅峰数字",
+                noData: "在此年龄段，该数字无详细数据。",
+                pyramidLabels: { month: "月", day: "日", year: "年" }
+            }
+        };
+
+        const LUNAR_DATA = { 1940:{can:"Canh",chi:"Thìn",menh:"Kim",can_zh:"庚",chi_zh:"辰",menh_zh:"金"},1941:{can:"Tân",chi:"Tỵ",menh:"Kim",can_zh:"辛",chi_zh:"巳",menh_zh:"金"},1942:{can:"Nhâm",chi:"Ngọ",menh:"Mộc",can_zh:"壬",chi_zh:"午",menh_zh:"木"},1943:{can:"Quý",chi:"Mùi",menh:"Mộc",can_zh:"癸",chi_zh:"未",menh_zh:"木"},1944:{can:"Giáp",chi:"Thân",menh:"Thủy",can_zh:"甲",chi_zh:"申",menh_zh:"水"},1945:{can:"Ất",chi:"Dậu",menh:"Thủy",can_zh:"乙",chi_zh:"酉",menh_zh:"水"},1946:{can:"Bính",chi:"Tuất",menh:"Thổ",can_zh:"丙",chi_zh:"戌",menh_zh:"土"},1947:{can:"Đinh",chi:"Hợi",menh:"Thổ",can_zh:"丁",chi_zh:"亥",menh_zh:"土"},1948:{can:"Mậu",chi:"Tý",menh:"Hỏa",can_zh:"戊",chi_zh:"子",menh_zh:"火"},1949:{can:"Kỷ",chi:"Sửu",menh:"Hỏa",can_zh:"己",chi_zh:"丑",menh_zh:"火"},1950:{can:"Canh",chi:"Dần",menh:"Mộc",can_zh:"庚",chi_zh:"寅",menh_zh:"木"},1951:{can:"Tân",chi:"Mão",menh:"Mộc",can_zh:"辛",chi_zh:"卯",menh_zh:"木"},1952:{can:"Nhâm",chi:"Thìn",menh:"Thủy",can_zh:"壬",chi_zh:"辰",menh_zh:"水"},1953:{can:"Quý",chi:"Tỵ",menh:"Thủy",can_zh:"癸",chi_zh:"巳",menh_zh:"水"},1954:{can:"Giáp",chi:"Ngọ",menh:"Kim",can_zh:"甲",chi_zh:"午",menh_zh:"金"},1955:{can:"Ất",chi:"Mùi",menh:"Kim",can_zh:"乙",chi_zh:"未",menh_zh:"金"},1956:{can:"Bính",chi:"Thân",menh:"Hỏa",can_zh:"丙",chi_zh:"申",menh_zh:"火"},1957:{can:"Đinh",chi:"Dậu",menh:"Hỏa",can_zh:"丁",chi_zh:"酉",menh_zh:"火"},1958:{can:"Mậu",chi:"Tuất",menh:"Mộc",can_zh:"戊",chi_zh:"戌",menh_zh:"木"},1959:{can:"Kỷ",chi:"Hợi",menh:"Mộc",can_zh:"己",chi_zh:"亥",menh_zh:"木"},1960:{can:"Canh",chi:"Tý",menh:"Thổ",can_zh:"庚",chi_zh:"子",menh_zh:"土"},1961:{can:"Tân",chi:"Sửu",menh:"Thổ",can_zh:"辛",chi_zh:"丑",menh_zh:"土"},1962:{can:"Nhâm",chi:"Dần",menh:"Kim",can_zh:"壬",chi_zh:"寅",menh_zh:"金"},1963:{can:"Quý",chi:"Mão",menh:"Kim",can_zh:"癸",chi_zh:"卯",menh_zh:"金"},1964:{can:"Giáp",chi:"Thìn",menh:"Hỏa",can_zh:"甲",chi_zh:"辰",menh_zh:"火"},1965:{can:"Ất",chi:"Tỵ",menh:"Hỏa",can_zh:"乙",chi_zh:"巳",menh_zh:"火"},1966:{can:"Bính",chi:"Ngọ",menh:"Thủy",can_zh:"丙",chi_zh:"午",menh_zh:"水"},1967:{can:"Đinh",chi:"Mùi",menh:"Thủy",can_zh:"丁",chi_zh:"未",menh_zh:"水"},1968:{can:"Mậu",chi:"Thân",menh:"Thổ",can_zh:"戊",chi_zh:"申",menh_zh:"土"},1969:{can:"Kỷ",chi:"Dậu",menh:"Thổ",can_zh:"己",chi_zh:"酉",menh_zh:"土"},1970:{can:"Canh",chi:"Tuất",menh:"Kim",can_zh:"庚",chi_zh:"戌",menh_zh:"金"},1971:{can:"Tân",chi:"Hợi",menh:"Kim",can_zh:"辛",chi_zh:"亥",menh_zh:"金"},1972:{can:"Nhâm",chi:"Tý",menh:"Mộc",can_zh:"壬",chi_zh:"子",menh_zh:"木"},1973:{can:"Quý",chi:"Sửu",menh:"Mộc",can_zh:"癸",chi_zh:"丑",menh_zh:"木"},1974:{can:"Giáp",chi:"Dần",menh:"Thủy",can_zh:"甲",chi_zh:"寅",menh_zh:"水"},1975:{can:"Ất",chi:"Mão",menh:"Thủy",can_zh:"乙",chi_zh:"卯",menh_zh:"水"},1976:{can:"Bính",chi:"Thìn",menh:"Thổ",can_zh:"丙",chi_zh:"辰",menh_zh:"土"},1977:{can:"Đinh",chi:"Tỵ",menh:"Thổ",can_zh:"丁",chi_zh:"巳",menh_zh:"土"},1978:{can:"Mậu",chi:"Ngọ",menh:"Hỏa",can_zh:"戊",chi_zh:"午",menh_zh:"火"},1979:{can:"Kỷ",chi:"Mùi",menh:"Hỏa",can_zh:"己",chi_zh:"未",menh_zh:"火"},1980:{can:"Canh",chi:"Thân",menh:"Mộc",can_zh:"庚",chi_zh:"申",menh_zh:"木"},1981:{can:"Tân",chi:"Dậu",menh:"Mộc",can_zh:"辛",chi_zh:"酉",menh_zh:"木"},1982:{can:"Nhâm",chi:"Tuất",menh:"Thủy",can_zh:"壬",chi_zh:"戌",menh_zh:"水"},1983:{can:"Quý",chi:"Hợi",menh:"Thủy",can_zh:"癸",chi_zh:"亥",menh_zh:"水"},1984:{can:"Giáp",chi:"Tý",menh:"Kim",can_zh:"甲",chi_zh:"子",menh_zh:"金"},1985:{can:"Ất",chi:"Sửu",menh:"Kim",can_zh:"乙",chi_zh:"丑",menh_zh:"金"},1986:{can:"Bính",chi:"Dần",menh:"Hỏa",can_zh:"丙",chi_zh:"寅",menh_zh:"火"},1987:{can:"Đinh",chi:"Mão",menh:"Hỏa",can_zh:"丁",chi_zh:"卯",menh_zh:"火"},1988:{can:"Mậu",chi:"Thìn",menh:"Mộc",can_zh:"戊",chi_zh:"辰",menh_zh:"木"},1989:{can:"Kỷ",chi:"Tỵ",menh:"Mộc",can_zh:"己",chi_zh:"巳",menh_zh:"木"},1990:{can:"Canh",chi:"Ngọ",menh:"Thổ",can_zh:"庚",chi_zh:"午",menh_zh:"土"},1991:{can:"Tân",chi:"Mùi",menh:"Thổ",can_zh:"辛",chi_zh:"未",menh_zh:"土"},1992:{can:"Nhâm",chi:"Thân",menh:"Kim",can_zh:"壬",chi_zh:"申",menh_zh:"金"},1993:{can:"Quý",chi:"Dậu",menh:"Kim",can_zh:"癸",chi_zh:"酉",menh_zh:"金"},1994:{can:"Giáp",chi:"Tuất",menh:"Hỏa",can_zh:"甲",chi_zh:"戌",menh_zh:"火"},1995:{can:"Ất",chi:"Hợi",menh:"Hỏa",can_zh:"乙",chi_zh:"亥",menh_zh:"火"},1996:{can:"Bính",chi:"Tý",menh:"Thủy",can_zh:"丙",chi_zh:"子",menh_zh:"水"},1997:{can:"Đinh",chi:"Sửu",menh:"Thủy",can_zh:"丁",chi_zh:"丑",menh_zh:"水"},1998:{can:"Mậu",chi:"Dần",menh:"Thổ",can_zh:"戊",chi_zh:"寅",menh_zh:"土"},1999:{can:"Kỷ",chi:"Mão",menh:"Thổ",can_zh:"己",chi_zh:"卯",menh_zh:"土"},2000:{can:"Canh",chi:"Thìn",menh:"Kim",can_zh:"庚",chi_zh:"辰",menh_zh:"金"},2001:{can:"Tân",chi:"Tỵ",menh:"Kim",can_zh:"辛",chi_zh:"巳",menh_zh:"金"},2002:{can:"Nhâm",chi:"Ngọ",menh:"Mộc",can_zh:"壬",chi_zh:"午",menh_zh:"木"},2003:{can:"Quý",chi:"Mùi",menh:"Mộc",can_zh:"癸",chi_zh:"未",menh_zh:"木"},2004:{can:"Giáp",chi:"Thân",menh:"Thủy",can_zh:"甲",chi_zh:"申",menh_zh:"水"},2005:{can:"Ất",chi:"Dậu",menh:"Thủy",can_zh:"乙",chi_zh:"酉",menh_zh:"水"},2006:{can:"Bính",chi:"Tuất",menh:"Thổ",can_zh:"丙",chi_zh:"戌",menh_zh:"土"},2007:{can:"Đinh",chi:"Hợi",menh:"Thổ",can_zh:"丁",chi_zh:"亥",menh_zh:"土"},2008:{can:"Mậu",chi:"Tý",menh:"Hỏa",can_zh:"戊",chi_zh:"子",menh_zh:"火"},2009:{can:"Kỷ",chi:"Sửu",menh:"Hỏa",can_zh:"己",chi_zh:"丑",menh_zh:"火"},2010:{can:"Canh",chi:"Dần",menh:"Mộc",can_zh:"庚",chi_zh:"寅",menh_zh:"木"},2011:{can:"Tân",chi:"Mão",menh:"Mộc",can_zh:"辛",chi_zh:"卯",menh_zh:"木"},2012:{can:"Nhâm",chi:"Thìn",menh:"Thủy",can_zh:"壬",chi_zh:"辰",menh_zh:"水"},2013:{can:"Quý",chi:"Tỵ",menh:"Thủy",can_zh:"癸",chi_zh:"巳",menh_zh:"水"},2014:{can:"Giáp",chi:"Ngọ",menh:"Kim",can_zh:"甲",chi_zh:"午",menh_zh:"金"},2015:{can:"Ất",chi:"Mùi",menh:"Kim",can_zh:"乙",chi_zh:"未",menh_zh:"金"},2016:{can:"Bính",chi:"Thân",menh:"Hỏa",can_zh:"丙",chi_zh:"申",menh_zh:"火"},2017:{can:"Đinh",chi:"Dậu",menh:"Hỏa",can_zh:"丁",chi_zh:"酉",menh_zh:"火"},2018:{can:"Mậu",chi:"Tuất",menh:"Mộc",can_zh:"戊",chi_zh:"戌",menh_zh:"木"},2019:{can:"Kỷ",chi:"Hợi",menh:"Mộc",can_zh:"己",chi_zh:"亥",menh_zh:"木"},2020:{can:"Canh",chi:"Tý",menh:"Thổ",can_zh:"庚",chi_zh:"子",menh_zh:"土"},2021:{can:"Tân",chi:"Sửu",menh:"Thổ",can_zh:"辛",chi_zh:"丑",menh_zh:"土"},2022:{can:"Nhâm",chi:"Dần",menh:"Kim",can_zh:"壬",chi_zh:"寅",menh_zh:"金"},2023:{can:"Quý",chi:"Mão",menh:"Kim",can_zh:"癸",chi_zh:"卯",menh_zh:"金"},2024:{can:"Giáp",chi:"Thìn",menh:"Hỏa",can_zh:"甲",chi_zh:"辰",menh_zh:"火"},2025:{can:"Ất",chi:"Tỵ",menh:"Hỏa",can_zh:"乙",chi_zh:"巳",menh_zh:"火"},2026:{can:"Bính",chi:"Ngọ",menh:"Thủy",can_zh:"丙",chi_zh:"午",menh_zh:"水"},2027:{can:"Đinh",chi:"Mùi",menh:"Thủy",can_zh:"丁",chi_zh:"未",menh_zh:"水"},2028:{can:"Mậu",chi:"Thân",menh:"Thổ",can_zh:"戊",chi_zh:"申",menh_zh:"土"},2029:{can:"Kỷ",chi:"Dậu",menh:"Thổ",can_zh:"己",chi_zh:"酉",menh_zh:"土"},2030:{can:"Canh",chi:"Tuất",menh:"Kim",can_zh:"庚",chi_zh:"戌",menh_zh:"金"} };
+        
+        const PEAK_MEANINGS = {
+            vi: {
+                1: { young: "Giai đoạn này đòi hỏi bạn phải tiên phong, tự lập và khẳng định cái tôi. Đây là thời điểm vàng để bắt đầu sự nghiệp riêng, khởi tạo dự án mới và học cách tin vào bản thân. Thử thách là vượt qua sự cô đơn và chứng tỏ năng lực mà không cần dựa dẫm.", midlife: "Ở giai đoạn này, con số 1 thúc đẩy bạn nắm vai trò lãnh đạo, đưa ra quyết định táo bạo. Bạn cần làm mới bản thân, có thể là thay đổi công việc hoặc tái cấu trúc cuộc sống để tìm lại ngọn lửa đam mê và mục tiêu ban đầu.", mature: "Đây là lúc bạn trở thành ngọn đuốc soi đường bằng kinh nghiệm và sự độc lập của mình. Hãy truyền lại di sản về sự tự chủ, lòng dũng cảm cho thế hệ sau, đồng thời tận hưởng thành quả từ một cuộc đời không ngừng nỗ lực." },
+                2: { young: "Đây là giai đoạn của sự hợp tác, lắng nghe và phát triển trực giác. Thành công đến từ việc xây dựng các mối quan hệ, học cách làm việc nhóm và nhạy bén với cảm xúc của người khác. Thử thách là vượt qua sự do dự, thiếu quyết đoán.", midlife: "Con số 2 ở giai đoạn này yêu cầu bạn trở thành người hòa giải, kết nối. Hãy dùng sự tinh tế và khả năng ngoại giao để cân bằng các mối quan hệ trong gia đình và công việc. Đây là lúc vun đắp cho hạnh phúc từ sự hòa hợp.", mature: "Đây là lúc bạn tận hưởng sự bình yên từ những mối quan hệ sâu sắc đã xây dựng. Hãy trở thành điểm tựa tinh thần, người lắng nghe và chia sẻ sự thấu hiểu với những người xung quanh. Giá trị lớn nhất là sự đồng điệu tâm hồn." },
+                3: { young: "Đây là thời điểm để bạn tỏa sáng, thể hiện sự sáng tạo và lan tỏa năng lượng tích cực. Hãy mạnh dạn theo đuổi nghệ thuật, viết lách, giao tiếp. Thử thách là giữ được sự tập trung, tránh hời hợt và biến ý tưởng thành hiện thực.", midlife: "Ở giai đoạn này, con số 3 khuyến khích bạn sử dụng khả năng ngôn ngữ và sự lạc quan để truyền cảm hứng. Hãy là người mang lại niềm vui, động lực cho tập thể. Đây là lúc phát triển thương hiệu cá nhân và mở rộng tầm ảnh hưởng.", mature: "Đây là lúc bạn sống trọn vẹn với niềm vui sáng tạo và trí tuệ. Hãy viết sách, dạy học, hoặc đơn giản là chia sẻ những câu chuyện cuộc đời mình. Nụ cười và tinh thần lạc quan của bạn là món quà quý giá nhất." },
+                4: { young: "Giai đoạn này yêu cầu sự chăm chỉ, kỷ luật và xây dựng nền tảng. Đây là lúc tập trung vào công việc ổn định, tiết kiệm, mua nhà, tạo dựng cơ sở vật chất vững chắc. Thử thách là tránh sự cứng nhắc, nhàm chán và dám chấp nhận rủi ro có tính toán.", midlife: "Con số 4 ở giai đoạn này là về việc củng cố và tối ưu hóa những gì bạn đã xây dựng. Hãy trở thành chuyên gia trong lĩnh vực của mình, tạo ra các quy trình hiệu quả và đảm bảo sự an toàn, ổn định cho gia đình và sự nghiệp.", mature: "Đây là lúc bạn tận hưởng thành quả từ sự chăm chỉ của cả cuộc đời. Hãy là biểu tượng của sự ổn định, đáng tin cậy. Di sản của bạn là những giá trị vật chất và tinh thần bền vững bạn để lại cho con cháu." },
+                5: { young: "Đây là giai đoạn của sự tự do, phiêu lưu và thay đổi. Hãy dũng cảm bước ra khỏi vùng an toàn, đi du lịch, thử những công việc khác nhau và kết giao rộng rãi. Thử thách là giữ mình không bị sa đà, sống có mục đích giữa vô ván lựa chọn.", midlife: "Con số 5 ở giai đoạn này mang đến những cơ hội thay đổi lớn lao. Đó có thể là một bước ngoặt trong sự nghiệp, một cuộc chuyển nhà, hoặc một sự thay đổi trong tư duy. Hãy linh hoạt và nắm bắt thời cơ để làm mới cuộc sống.", mature: "Đây là lúc bạn chia sẻ những câu chuyện và kinh nghiệm từ một cuộc đời phong phú. Hãy giữ tinh thần trẻ trung, ham học hỏi và thích nghi với cái mới. Sự tự do trong tâm hồn là thành tựu lớn nhất của bạn." },
+                6: { young: "Giai đoạn này tập trung vào tình yêu, gia đình và trách nhiệm. Đây là thời điểm lý tưởng để kết hôn, sinh con, và xây dựng một tổ ấm hạnh phúc. Thử thách là cân bằng giữa việc chăm sóc người khác và quan tâm đến chính mình.", midlife: "Con số 6 ở giai đoạn này nhấn mạnh vai trò của bạn là trụ cột trong gia đình và cộng đồng. Hãy là người chữa lành, nuôi dưỡng và gánh vác trách nhiệm. Sự hy sinh và cống hiến của bạn sẽ được đền đáp bằng tình yêu thương.", mature: "Đây là lúc bạn tận hưởng niềm vui sum vầy bên con cháu và những người thân yêu. Hãy là cây cao bóng cả, che chở và truyền lại những giá trị về tình yêu thương và trách nhiệm cho thế hệ mai sau." },
+                7: { young: "Đây là giai đoạn bạn được thôi thúc tìm kiếm tri thức và sự thật. Ở độ tuổi trẻ trung, con số 7 khuyến khích bạn đi sâu vào học tập, nghiên cứu một lĩnh vực bạn đam mê. Đây là lúc xây dựng nền tảng trí tuệ và tinh thần vững chắc.", midlife: "Khi đã có những trải nghiệm, con số 7 mời gọi bạn nhìn lại và đúc kết bài học sâu sắc. Đây là thời điểm để phát triển trực giác, tin vào tiếng nói bên trong và chia sẻ kiến thức bạn đã tích lũy, có thể trở thành một chuyên gia.", mature: "Ở đỉnh cao của sự trưởng thành, con số 7 mang ý nghĩa của sự chiêm nghiệm và truyền lại di sản tinh thần. Bạn tìm thấy sự bình yên và minh triết từ nội tâm. Sự thông thái của bạn sẽ là ngọn hải đăng cho thế hệ sau." },
+                8: { young: "Giai đoạn này là cơ hội để bạn xây dựng quyền lực và sự nghiệp tài chính. Hãy học cách kinh doanh, đầu tư, quản lý tiền bạc và dám đặt ra những mục tiêu lớn. Thử thách là giữ được sự cân bằng, tránh tham vọng mù quáng.", midlife: "Con số 8 ở giai đoạn này khẳng định vị thế và quyền lực của bạn. Đây là lúc gặt hái những thành công lớn về vật chất, điều hành những dự án quy mô và tạo ra ảnh hưởng lớn trong xã hội. Hãy sử dụng quyền lực một cách khôn ngoan.", mature: "Đây là lúc bạn sử dụng sự giàu có và quyền lực của mình để tạo ra giá trị cho cộng đồng. Hãy trở thành nhà từ thiện, người cố vấn, và để lại một di sản vật chất to lớn cùng với danh tiếng tốt đẹp." },
+                9: { young: "Đây là giai đoạn của lý tưởng, lòng nhân ái và ước mơ lớn. Bạn được thôi thúc để cống hiến cho một mục tiêu cao cả hơn bản thân. Hãy tham gia các hoạt động cộng đồng, tình nguyện. Thử thách là giữ được lý tưởng mà không xa rời thực tế.", midlife: "Con số 9 ở giai đoạn này là về việc hoàn thành một sứ mệnh quan trọng. Đây là lúc bạn sử dụng trí tuệ và kinh nghiệm của mình để lãnh đạo một dự án nhân văn, tạo ra sự thay đổi tích cực trên quy mô lớn.", mature: "Đây là lúc bạn sống một cuộc đời của sự cho đi và buông bỏ. Hãy tha thứ, hoàn thành những gì còn dang dở và tận hưởng sự thanh thản trong tâm hồn. Di sản của bạn là tình yêu thương và cảm hứng bạn để lại cho nhân loại." },
+                11: { young: "Đây là giai đoạn khai mở tâm linh và trực giác phi thường. Bạn có khả năng nhạy cảm đặc biệt và có thể kết nối với những nguồn năng lượng cao hơn. Hãy học thiền, phát triển khả năng của mình và tin vào những thông điệp mà trực giác mách bảo.", midlife: "Ở giai đoạn này, con số 11 thúc đẩy bạn trở thành người truyền cảm hứng, một nhà lãnh đạo tinh thần. Hãy sử dụng khả năng đặc biệt của mình để dẫn dắt, chữa lành và nâng cao nhận thức cho người khác.", mature: "Đây là lúc bạn sống trọn vẹn với vai trò là một bậc thầy tâm linh. Sự hiện diện của bạn mang lại bình an và giác ngộ cho những người xung quanh. Di sản của bạn là con đường tâm linh mà bạn đã khai mở và chia sẻ." },
+                22: { young: "Giai đoạn này bạn được trao cho khả năng biến những ước mơ lớn thành hiện thực. Hãy học cách lập kế hoạch, tổ chức và kiên trì theo đuổi những dự án có quy mô lớn, mang lại lợi ích thực tế cho nhiều người.", midlife: "Con số 22 ở giai đoạn này là cơ hội để bạn xây dựng những công trình vĩ đại, những di sản vật chất bền vững. Bạn có thể là một nhà kiến tạo, một doanh nhân lớn, một nhà lãnh đạo xuất chúng có khả năng thay đổi cả một ngành.", mature: "Đây là lúc bạn chiêm ngưỡng những thành tựu vĩ đại mà mình đã tạo ra. Di sản của bạn không chỉ là vật chất mà còn là tầm nhìn, là phương pháp, là nguồn cảm hứng cho những thế hệ kiến tạo tiếp theo." }
+            },
+            zh: {
+                1: { young: "这个阶段要求你开拓、独立并肯定自我。这是开创个人事业、启动新项目和学习自信的黄金时期。挑战在于克服孤独，不依赖他人证明自己的能力。", midlife: "在此阶段，数字1促使你扮演领导角色，做出大胆的决定。你需要更新自己，可能是换工作或重组生活，以重新找回激情和最初的目标。", mature: "这时你凭借经验和独立性成为指路明灯。请将自主和勇敢的遗产传给下一代，同时享受不懈努力一生的成果。" },
+                2: { young: "这是合作、倾听和发展直觉的阶段。成功来自于建立关系、学习团队合作和对他人的情感保持敏感。挑战是克服犹豫不决。", midlife: "此阶段的数字2要求你成为调解者和连接者。请运用你的敏锐和外交手腕来平衡家庭和工作中的关系。这是从和谐中培养幸福的时候。", mature: "这时你享受着已建立的深刻关系所带来的宁静。请成为精神支柱，倾听并与周围的人分享理解。最大的价值是灵魂的共鸣。" },
+                3: { young: "这是你大放异彩、展现创造力和传播正能量的时刻。请大胆追求艺术、写作和交流。挑战在于保持专注，避免肤浅，并将想法变为现实。", midlife: "在此阶段，数字3鼓励你运用语言能力和乐观精神来激励他人。请成为给集体带来欢乐和动力的人。这是发展个人品牌和扩大影响力的时机。", mature: "这时你充分享受创造和智慧的乐趣。请写书、教学，或者简单地分享你的人生故事。你的微笑和乐观精神是最宝贵的礼物。" },
+                4: { young: "这个阶段要求勤奋、纪律和建立基础。这是专注于稳定工作、储蓄、购房，并建立坚实物质基础的时候。挑战是避免僵化、乏味，并敢于承担经过计算的风险。", midlife: "此阶段的数字4是关于巩固和优化你已建立的一切。请成为你所在领域的专家，创建高效的流程，并确保家庭和事业的安全与稳定。", mature: "这时你享受着一生辛勤工作的成果。请成为稳定、可靠的象征。你的遗产是你留给子孙的持久的物质和精神价值。" },
+                5: { young: "这是自由、冒险和变革的阶段。请勇敢地走出舒适区，去旅行，尝试不同的工作，并广泛交友。挑战在于在众多选择中保持自我，有目的地生活。", midlife: "此阶段的数字5带来了巨大的变革机会。这可能是职业生涯的转折点，一次搬家，或思维方式的改变。请保持灵活性，抓住时机，让生活焕然一新。", mature: "这时你分享着丰富人生的故事和经验。请保持年轻的心态，乐于学习和适应新事物。内心的自由是你最大的成就。" },
+                6: { young: "这个阶段专注于爱情、家庭和责任。这是结婚、生子和建立幸福家庭的理想时机。挑战在于平衡照顾他人和关心自己。", midlife: "此阶段的数字6强调了你作为家庭和社区支柱的角色。请成为治愈者、培育者和责任承担者。你的牺牲和奉献将以爱作为回报。", mature: "这时你享受着与子孙和亲人团聚的快乐。请成为参天大树，庇护并传承爱与责任的价值观给后代。" },
+                7: { young: "这个阶段你被驱使去寻求知识和真理。在年轻时，数字7鼓励你深入学习，研究你热爱的领域。这是建立坚实智慧和精神基础的时候。", midlife: "有了经验之后，数字7邀请你回顾并总结深刻的教训。这是发展直觉、相信内心声音并分享你积累的知识，可能成为专家的时刻。", mature: "在成熟的顶峰，数字7意味着沉思和传承精神遗产。你从内心找到了平静和智慧。你的智慧将成为后代的灯塔。" },
+                8: { young: "这个阶段是建立权力和金融事业的机会。请学习经商、投资、理财，并敢于设定宏伟的目标。挑战在于保持平衡，避免盲目的野心。", midlife: "此阶段的数字8确立了你的地位和权力。这是在物质上取得巨大成功，运营大型项目，并在社会上产生巨大影响的时候。请明智地使用权力。", mature: "这时你利用自己的财富和权力为社区创造价值。请成为慈善家、顾问，并留下巨大的物质遗产和良好的声誉。" },
+                9: { young: "这是理想、仁爱和远大梦想的阶段。你被驱使为比自身更崇高的目标而奉献。请参加社区活动和志愿服务。挑战在于保持理想而不脱离现实。", midlife: "此阶段的数字9是关于完成一项重要使命。这是你运用智慧和经验领导一个人道主义项目，大规模地创造积极变化的时候。", mature: "这时你过着一种给予和放下的生活。请宽恕，完成未竟之事，并享受内心的宁静。你的遗产是你留给人类的爱和灵感。" },
+                11: { young: "这是开启非凡精神和直觉的阶段。你具有特殊的敏感性，能连接到更高的能量。请学习冥想，发展你的能力，并相信直觉的指引。", midlife: "在此阶段，数字11促使你成为一个鼓舞人心的人，一个精神领袖。请运用你的特殊能力来引导、治愈和提升他人的意识。", mature: "这时你完全活出了精神导师的角色。你的存在为周围的人带来平静和觉悟。你的遗产是你开启并分享的精神道路。" },
+                22: { young: "这个阶段你被赋予了将宏伟梦想变为现实的能力。请学习规划、组织，并坚持追求能为许多人带来实际利益的大型项目。", midlife: "此阶段的数字22是建造宏伟工程和持久物质遗产的机会。你可以是一位建造者、大企业家、或能改变整个行业的杰出领袖。", mature: "这时你欣赏着自己创造的伟大成就。你的遗产不仅是物质的，更是远见、方法和对后代创造者的灵感。" }
+            }
+        };
+
+        const RECOMMENDATIONS = {
+            vi: {
+                "Kim": { title: "Vòng Trầm Minh Triết cho người mệnh Kim", text: "Người mệnh Kim vốn mang trong mình sự mạnh mẽ, quyết đoán và một nội lực vững vàng. Hành trình 4 đỉnh cao của bạn là một con đường tôi luyện bản lĩnh để đạt được những thành tựu lớn. Để hỗ trợ bạn trên con đường này, vòng trầm hương kết hợp với đá năng lượng hành Thổ (tương sinh) sẽ là người bạn đồng hành lý tưởng.", advice: "Hương thơm dịu nhẹ của trầm sẽ giúp bạn giữ được sự tĩnh tại, sáng suốt trước những quyết định quan trọng. Năng lượng từ đá Thạch Anh Vàng hay Mắt Hổ sẽ như một nguồn năng lượng Thổ vững chắc, bồi đắp cho bản mệnh Kim của bạn, giúp thu hút tài lộc, tăng cường sự tự tin và biến mọi thách thức thành cơ hội tỏa sáng.", stones: "Thạch Anh Vàng, Mắt Hổ Vàng, Đá Mắt Rồng, Thạch Anh Tóc Vàng.", image: "https://placehold.co/200x200/FBBF24/FFFFFF?text=M%E1%BB%87nh+Kim" },
+                "Mộc": { title: "Vòng Trầm An Nhiên cho người mệnh Mộc", text: "Người mệnh Mộc có tâm hồn nghệ sĩ, luôn hướng đến sự tăng trưởng và phát triển, giống như một cái cây vươn mình đón nắng. Hành trình 4 đỉnh cao của bạn là quá trình nuôi dưỡng sự sáng tạo và lòng nhân ái. Vòng trầm hương kết hợp với đá năng lượng hành Thủy (tương sinh) sẽ là nguồn nước mát lành tưới tắm cho tâm hồn bạn.", advice: "Hương trầm thanh khiết giúp bạn kết nối sâu hơn với thiên nhiên và nội tâm, khơi nguồn cảm hứng sáng tạo. Năng lượng từ đá Aquamarine hay Thạch Anh Đen sẽ như dòng nước bồi đắp, giúp bạn thêm linh hoạt, uyển chuyển, dễ dàng vượt qua khó khăn và lan tỏa sự tích cực đến mọi người.", stones: "Thạch Anh Đen, Đá Aquamarine, Thạch Anh Tóc Xanh, Đá Diopside.", image: "https://placehold.co/200x200/10B981/FFFFFF?text=M%E1%BB%87nh+M%E1%BB%99c" },
+                "Thủy": { title: "Vòng Trầm Trí Tuệ cho người mệnh Thủy", text: "Người mệnh Thủy sở hữu trí tuệ thông minh, khả năng giao tiếp khéo léo và dễ dàng thích ứng như dòng nước. Hành trình 4 đỉnh cao của bạn là con đường của sự học hỏi, thấu hiểu và chia sẻ. Để dòng chảy trí tuệ ấy luôn được khơi thông, vòng trầm hương kết hợp đá năng lượng hành Kim (tương sinh) sẽ là vật phẩm hộ mệnh tuyệt vời.", advice: "Hương trầm giúp tâm trí bạn lắng đọng, tăng khả năng tập trung và suy xét thấu đáo. Năng lượng từ Thạch Anh Trắng hay Đá Mặt Trăng sẽ hỗ trợ, làm tăng thêm sự minh mẫn, giúp bạn đưa ra những quyết định sáng suốt và thành công trong các cuộc đàm phán, giao tiếp.", stones: "Thạch Anh Trắng, Đá Mặt Trăng (Moonstone), Thạch Anh Ưu Linh Trắng, Topaz Xanh.", image: "https://placehold.co/200x200/3B82F6/FFFFFF?text=M%E1%BB%87nh+Th%E1%BB%A7y" },
+                "Hỏa": { title: "Vòng Trầm Nhiệt Huyết cho người mệnh Hỏa", text: "Người mệnh Hỏa luôn rực cháy với đam mê, nhiệt huyết và tinh thần lãnh đạo. Hành trình 4 đỉnh cao của bạn là con đường để lan tỏa ánh sáng và truyền cảm hứng mạnh mẽ. Để ngọn lửa ấy luôn cháy sáng và bền bỉ, vòng trầm hương cùng đá năng lượng hành Mộc (tương sinh) sẽ là chất xúc tác không thể thiếu.", advice: "Hương trầm ấm áp sẽ giúp bạn điều hòa năng lượng, giữ được sự bình tĩnh và tránh nóng vội. Năng lượng từ Cẩm Thạch Xanh hay Thạch Anh Tím sẽ như cành củi khô tiếp thêm sức mạnh cho ngọn lửa đam mê của bạn, giúp bạn thu hút tình duyên, thăng tiến trong sự nghiệp và luôn là tâm điểm của sự chú ý.", stones: "Thạch Anh Tím, Thạch Anh Dâu Tây, Mã Não Đỏ, Cẩm Thạch Xanh.", image: "https://placehold.co/200x200/EF4444/FFFFFF?text=M%E1%BB%87nh+H%E1%BB%8Fa" },
+                "Thổ": { title: "Vòng Trầm Vững Chắc cho người mệnh Thổ", text: "Người mệnh Thổ mang trong mình sự vững chãi, đáng tin cậy và lòng bao dung của đất mẹ. Hành trình 4 đỉnh cao của bạn là quá trình xây dựng nền tảng vững chắc và nuôi dưỡng các mối quan hệ. Vòng trầm hương kết hợp đá năng lượng hành Hỏa (tương sinh) sẽ giúp mảnh đất nội tâm của bạn thêm màu mỡ, ấm áp.", advice: "Hương trầm trầm lắng giúp bạn tăng cường sự kiên định, vững tâm trước sóng gió. Năng lượng từ Thạch Anh Hồng hay Mã Não Đỏ sẽ như ánh mặt trời sưởi ấm, giúp bạn củng cố các mối quan hệ, tăng cường sự may mắn về tài chính và tạo dựng một cuộc sống ổn định, thịnh vượng.", stones: "Mã Não Đỏ, Thạch Anh Hồng, Thạch Anh Tóc Đỏ, Đá Mắt Hổ Nâu Đỏ.", image: "https://placehold.co/200x200/A16207/FFFFFF?text=M%E1%BB%87nh+Th%E1%BB%95" }
+            },
+            zh: {
+                "Kim": { title: "明哲沉香手串 - 献给金命者", text: "金命者天生具有坚强、果断的性格和稳固的内在力量。您的人生四大巅峰是一条锻炼本领以取得伟大成就的道路。为了在这条路上支持您，沉香手串与土行（相生）能量宝石的结合将是理想的伴侣。", advice: "沉香的淡雅香气将帮助您在重大决策前保持冷静和清醒。黄水晶或虎眼石的能量将如坚实的土能量，滋养您的金命，帮助吸引财运，增强自信，将所有挑战化为闪耀的机会。", stones: "黄水晶, 金虎眼石, 龙眼石, 金发晶。", image: "https://placehold.co/200x200/FBBF24/FFFFFF?text=%E9%87%91%E5%91%BD" },
+                "Mộc": { title: "安然沉香手串 - 献给木命者", text: "木命者拥有艺术家的灵魂，总是向往成长和发展，就像一棵向着阳光伸展的树。您的人生四大巅峰是培养创造力和仁爱之心的过程。沉香手串与水行（相生）能量宝石的结合将是滋润您灵魂的清泉。", advice: "沉香的清雅香气帮助您更深地与自然和内心连接，激发创作灵感。海蓝宝或黑曜石的能量将如滋养的水流，帮助您更加灵活、柔韧，轻松克服困难，并向每个人传播积极性。", stones: "黑曜石, 海蓝宝, 绿发晶, 透辉石。", image: "https://placehold.co/200x200/10B981/FFFFFF?text=%E6%9C%A8%E5%91%BD" },
+                "Thủy": { title: "智慧沉香手串 - 献给水命者", text: "水命者拥有聪明的智慧、巧妙的沟通能力和如水般的适应性。您的人生四大巅峰是一条学习、理解和分享的道路。为了让智慧之流永远畅通，沉香手串与金行（相生）能量宝石的结合将是绝佳的护身符。", advice: "沉香帮助您的心神沉淀，提高专注力和周密的思考能力。白水晶或月光石的能量将辅助您，增加清晰度，帮助您做出明智的决定，并在谈判和沟通中取得成功。", stones: "白水晶, 月光石, 白幽灵, 蓝托帕石。", image: "https://placehold.co/200x200/3B82F6/FFFFFF?text=%E6%B0%B4%E5%91%BD" },
+                "Hỏa": { title: "热忱沉香手串 - 献给火命者", text: "火命者总是燃烧着激情、热忱和领导精神。您的人生四大巅峰是传播光明和强烈灵感的道路。为了让那火焰永远明亮而持久，沉香手串与木行（相生）能量宝石将是不可或缺的催化剂。", advice: "温暖的沉香香气将帮助您调节能量，保持冷静，避免急躁。绿翡翠或紫水晶的能量将如干柴，为您的激情之火增添力量，帮助您吸引爱情，事业晋升，并始终成为众人瞩目的焦点。", stones: "紫水晶, 草莓晶, 红玛瑙, 绿翡翠。", image: "https://placehold.co/200x200/EF4444/FFFFFF?text=%E7%81%AB%E5%91%BD" },
+                "Thổ": { title: "稳固沉香手串 - 献给土命者", text: "土命者拥有大地母亲般的稳重、可靠和宽容。您的人生四大巅峰是建立坚实基础和培养关系的过程。沉香手串与火行（相生）能量宝石的结合将使您的内心土壤更加肥沃和温暖。", advice: "深沉的沉香香气帮助您增强坚定性，在风浪面前稳住心神。粉晶或红玛瑙的能量将如温暖的阳光，帮助您巩固关系，增强财运，并建立一个稳定、繁荣的生活。", stones: "红玛瑙, 粉晶, 红发晶, 棕虎眼石。", image: "https://placehold.co/200x200/A16207/FFFFFF?text=%E5%9C%9F%E5%91%BD" }
+            }
+        };
+
+        // --- DOM ELEMENTS & APP STATE ---
+        let currentLanguage = 'vi';
+        const calculateBtn = document.getElementById('calculateBtn');
+        const fullNameInput = document.getElementById('fullName');
+        const birthDateInput = document.getElementById('birthDate');
+        const resultsDiv = document.getElementById('results');
+        const loadingDiv = document.getElementById('loading');
+        const errorMessageDiv = document.getElementById('error-message');
+        const langViBtn = document.getElementById('lang-vi');
+        const langZhBtn = document.getElementById('lang-zh');
+
+        // --- HELPER FUNCTIONS ---
+        function reduceNumber(num) {
+            if (num === 11 || num === 22) return num;
+            let sum = num.toString().split('').reduce((acc, digit) => acc + parseInt(digit, 10), 0);
+            while (sum > 9 && sum !== 11 && sum !== 22) {
+                sum = sum.toString().split('').reduce((acc, digit) => acc + parseInt(digit, 10), 0);
+            }
+            return sum;
+        }
+
+        function getAgeCategory(age) {
+            if (age <= 35) return 'young';
+            if (age <= 50) return 'midlife';
+            return 'mature';
+        }
+
+        // --- LANGUAGE FUNCTION ---
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.documentElement.lang = lang;
+            
+            langViBtn.classList.toggle('active', lang === 'vi');
+            langZhBtn.classList.toggle('active', lang === 'zh');
+
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                el.textContent = translations[lang][key];
+            });
+            document.querySelectorAll('[data-lang-key-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-lang-key-placeholder');
+                el.placeholder = translations[lang][key];
+            });
+            // If results are visible, re-render them in the new language
+            if (!resultsDiv.classList.contains('hidden')) {
+                 calculateBtn.click();
+            }
+        }
+
+        // --- CALCULATION FUNCTIONS ---
+        function calculateAllData(birthDate) {
+            const day = birthDate.getDate();
+            const month = birthDate.getMonth() + 1;
+            const year = birthDate.getFullYear();
+            const sumOfDate = (day + '' + month + '' + year).split('').reduce((s, d) => s + +d, 0);
+            const rulingNumber = reduceNumber(sumOfDate);
+            const base1 = reduceNumber(month);
+            const base2 = reduceNumber(day);
+            const base3 = reduceNumber(year);
+            const peak1Value = reduceNumber(base1 + base2);
+            const peak2Value = reduceNumber(base2 + base3);
+            const peak3Value = reduceNumber(peak1Value + peak2Value);
+            const peak4Value = reduceNumber(base1 + base3);
+            const agePeak1 = 36 - rulingNumber;
+            const agePeak2 = agePeak1 + 9;
+            const agePeak3 = agePeak2 + 9;
+            const agePeak4 = agePeak3 + 9;
+            return {
+                peaks: {
+                    peak1: { age: agePeak1, value: peak1Value },
+                    peak2: { age: agePeak2, value: peak2Value },
+                    peak3: { age: agePeak3, value: peak3Value },
+                    peak4: { age: agePeak4, value: peak4Value },
+                },
+                bases: { base1, base2, base3 }
+            };
+        }
+
+        // --- UI UPDATE FUNCTIONS ---
+        function drawPyramid(data) {
+            const { peaks, bases } = data;
+            const labels = translations[currentLanguage].pyramidLabels;
+            
+            document.getElementById('baseNode1').innerHTML = `<div class="value">${bases.base1}</div><div class="label">${labels.month}</div>`;
+            document.getElementById('baseNode2').innerHTML = `<div class="value">${bases.base2}</div><div class="label">${labels.day}</div>`;
+            document.getElementById('baseNode3').innerHTML = `<div class="value">${bases.base3}</div><div class="label">${labels.year}</div>`;
+            
+            document.getElementById('peakNode1').innerHTML = `<div class="value">${peaks.peak1.value}</div><div class="label">${peaks.peak1.age} ${translations[currentLanguage].peakAge}</div>`;
+            document.getElementById('peakNode2').innerHTML = `<div class="value">${peaks.peak2.value}</div><div class="label">${peaks.peak2.age} ${translations[currentLanguage].peakAge}</div>`;
+            document.getElementById('peakNode3').innerHTML = `<div class="value">${peaks.peak3.value}</div><div class="label">${peaks.peak3.age} ${translations[currentLanguage].peakAge}</div>`;
+            document.getElementById('peakNode4').innerHTML = `<div class="value">${peaks.peak4.value}</div><div class="label">${peaks.peak4.age} ${translations[currentLanguage].peakAge}</div>`;
+            
+            const svg = document.getElementById('pyramidLines');
+            svg.innerHTML = '';
+            const positions = {
+                b1: { x: '10%', y: '95%' }, b2: { x: '50%', y: '95%' }, b3: { x: '90%', y: '95%' },
+                p1: { x: '30%', y: '65%' }, p2: { x: '70%', y: '65%' },
+                p3: { x: '50%', y: '35%' }, p4: { x: '50%', y: '5%' }
+            };
+            const connections = [
+                ['b1','p1'], ['b2','p1'], ['b2','p2'], ['b3','p2'],
+                ['p1','p3'], ['p2','p3'], ['p1','p4'], ['p3','p4'], ['p2','p4']
+            ];
+             connections.forEach(conn => {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', positions[conn[0]].x);
+                line.setAttribute('y1', positions[conn[0]].y);
+                line.setAttribute('x2', positions[conn[1]].x);
+                line.setAttribute('y2', positions[conn[1]].y);
+                line.setAttribute('stroke', 'rgba(107, 33, 168, 0.4)');
+                line.setAttribute('stroke-width', '2');
+                svg.appendChild(line);
+            });
+        }
+
+        // --- EVENT LISTENERS ---
+        langViBtn.addEventListener('click', () => setLanguage('vi'));
+        langZhBtn.addEventListener('click', () => setLanguage('zh'));
+
+        calculateBtn.addEventListener('click', () => {
+            const fullName = fullNameInput.value.trim();
+            const birthDateValue = birthDateInput.value;
+
+            if (!fullName || !birthDateValue) {
+                errorMessageDiv.querySelector('[data-lang-key="errorText"]').textContent = translations[currentLanguage].errorText;
+                errorMessageDiv.classList.remove('hidden');
+                resultsDiv.classList.add('hidden');
+                return;
+            }
+            errorMessageDiv.classList.add('hidden');
+            resultsDiv.classList.add('hidden');
+            loadingDiv.classList.remove('hidden');
+
+            setTimeout(() => {
+                const birthDate = new Date(birthDateValue);
+                const year = birthDate.getFullYear();
+                const lunarInfo = LUNAR_DATA[year];
+
+                if (!lunarInfo) {
+                    errorMessageDiv.querySelector('[data-lang-key="errorText"]').textContent = translations[currentLanguage].errorYearRange;
+                    errorMessageDiv.classList.remove('hidden');
+                    loadingDiv.classList.add('hidden');
+                    return;
+                }
+
+                const allData = calculateAllData(birthDate);
+                const recommendation = RECOMMENDATIONS[currentLanguage][lunarInfo.menh];
+
+                // Display basic results
+                document.getElementById('resultName').textContent = fullName;
+                const can = currentLanguage === 'vi' ? lunarInfo.can : lunarInfo.can_zh;
+                const chi = currentLanguage === 'vi' ? lunarInfo.chi : lunarInfo.chi_zh;
+                document.getElementById('resultLunarYear').textContent = `${can} ${chi} - ${year}`;
+                const menh = currentLanguage === 'vi' ? lunarInfo.menh : lunarInfo.menh_zh;
+                document.getElementById('resultMệnh').textContent = `${translations[currentLanguage].menhPrefix}${menh}`;
+
+                // Draw Pyramid
+                drawPyramid(allData);
+
+                // Display Peak Meanings
+                const peaksMeaningContainer = document.getElementById('peaksMeaningContainer');
+                peaksMeaningContainer.innerHTML = '';
+                Object.entries(allData.peaks).forEach(([key, peak], index) => {
+                    const ageCategory = getAgeCategory(peak.age);
+                    const meaningData = PEAK_MEANINGS[currentLanguage][peak.value] ? PEAK_MEANINGS[currentLanguage][peak.value][ageCategory] : translations[currentLanguage].noData;
+                    
+                    const peakCard = `<div class="bg-white/50 p-4 rounded-lg shadow-sm border border-gray-200">
+                            <h4 class="font-bold text-lg text-purple-700">${translations[currentLanguage].peakTitle} ${index + 1}: ${peak.age} ${translations[currentLanguage].peakAge}</h4>
+                            <p class="text-sm text-gray-500 mb-2">${translations[currentLanguage].peakNumber}: <span class="font-semibold">${peak.value}</span></p>
+                            <p class="text-gray-700">${meaningData}</p>
+                        </div>`;
+                    peaksMeaningContainer.innerHTML += peakCard;
+                });
+                
+                // Display Recommendation
+                document.getElementById('recoTitleText').textContent = recommendation.title;
+                document.getElementById('recoText').textContent = recommendation.text;
+                document.getElementById('recoAdvice').textContent = recommendation.advice;
+                document.getElementById('recoStones').textContent = recommendation.stones;
+                document.getElementById('recoImage').src = recommendation.image;
+                document.getElementById('recoImage').alt = recommendation.title;
+
+                loadingDiv.classList.add('hidden');
+                resultsDiv.classList.remove('hidden');
+                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            }, 1000);
+        });
+
+        // Initialize with default language
+        window.onload = () => {
+            setLanguage('vi');
+        };
+    </script>
+</body>
+</html>
